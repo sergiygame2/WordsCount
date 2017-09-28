@@ -55,8 +55,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\DBAdapter.cs" />
-    <Compile Include="Models\Request.cs" />
+    <Compile Include="Helpers\DataHelper.cs" />
+    <Compile Include="Models\TextRequest.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Services\TextAnalyzer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -96,5 +98,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
