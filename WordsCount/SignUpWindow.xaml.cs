@@ -12,6 +12,7 @@ namespace WordsCount
     {
         public SignUpWindow()
         {
+            WindowStyle = WindowStyle.None;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             _signUpViewModel = new SignUpViewModel(new User());
@@ -35,10 +36,11 @@ namespace WordsCount
         {
             if (!isQuitApp)
             {
-                this.Close();
+                Close();
             }
             else
             {
+                MessageBox.Show("Salut!");
                 Environment.Exit(0);
             }
         }

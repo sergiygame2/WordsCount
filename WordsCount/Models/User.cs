@@ -29,6 +29,7 @@ namespace WordsCount.Models
             Email = email;
             HashPassword = DataHelper.Hash(password);
             LastVisit = DateTime.Now;
+            TextRequests = new List<TextRequest>();
         }
     }
 }

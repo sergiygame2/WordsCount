@@ -65,14 +65,21 @@
     </Compile>
     <Compile Include="Models\TextRequest.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="RequestsHistoryWindow.xaml.cs">
+      <DependentUpon>RequestsHistoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TextRequestsWindow.xaml.cs">
+      <DependentUpon>TextRequestsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\StationManager.cs" />
     <Compile Include="Services\TextAnalyzer.cs" />
     <Compile Include="SignUpWindow.xaml.cs">
       <DependentUpon>SignUpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\RequestsHistoryViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
+    <Compile Include="ViewModels\TextRequestsViewModel.cs" />
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -89,6 +96,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RequestsHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextRequestsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SignUpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

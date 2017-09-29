@@ -12,6 +12,7 @@ namespace WordsCount
     {
         public LoginWindow()
         {
+            WindowStyle = WindowStyle.None;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             _loginViewModel = new LoginViewModel(new User());
@@ -34,6 +35,7 @@ namespace WordsCount
             }
             else
             {
+                MessageBox.Show("Salut!");
                 Environment.Exit(0);
             }
         }

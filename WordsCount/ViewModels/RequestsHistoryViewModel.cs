@@ -1,30 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using WordsCount.Commands;
 
 namespace WordsCount.ViewModels
 {
-    internal class MainViewModel : INotifyPropertyChanged
+    internal class RequestsHistoryViewModel : INotifyPropertyChanged
     {
-        private RelayCommand _logOutCommand;
+        private RelayCommand _openMainWindowCommand;
 
-        public RelayCommand LogOutCommand => _logOutCommand ?? (_logOutCommand = new RelayCommand(LogOut));
+        public RelayCommand OpenRequestsCommand => _openMainWindowCommand ?? (_openMainWindowCommand = new RelayCommand(OpenRequestsWindow));
 
-        private void LogOut(object obj)
+        private void OpenRequestsWindow(object obj)
         {
             OnRequestClose(false);
-            var loginWindow = new LoginWindow();
-            loginWindow.ShowDialog();
+            var textRequestsWindow = new TextRequestsWindow();
+            textRequestsWindow.ShowDialog();
         }
 
         internal event CloseHandler RequestClose;
         public delegate void CloseHandler(bool isQuitApp);
+
+        protected virtual void OnRequestClose(bool isquitapp)
+        {
+            RequestClose?.Invoke(isquitapp);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -33,10 +33,6 @@ namespace WordsCount.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        protected virtual void OnRequestClose(bool isquitapp)
-        {
-            RequestClose?.Invoke(isquitapp);
-        }
     }
+
 }

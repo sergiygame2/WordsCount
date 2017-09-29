@@ -74,8 +74,9 @@ namespace WordsCount.ViewModels
                 return;
             }
             StationManager.CurrentUser = currentUser;
-            MessageBox.Show("You have entered just now");
             OnRequestClose(false);
+            var textRequestsWindow = new TextRequestsWindow();
+            textRequestsWindow.ShowDialog();
         }
 
         internal event CloseHandler RequestClose;
