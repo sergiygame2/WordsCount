@@ -10,5 +10,8 @@ namespace WordsCount.Models
         public int WordsAmount { get; set; }
         public int LinesAmount { get; set; }
         public DateTime CreatedAt { get; set; }
+        // properties for DB relation
+        // public int UserId { get; set; } 
+        // public User User { get; set; }
     }
 }

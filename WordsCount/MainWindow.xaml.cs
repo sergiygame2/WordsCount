@@ -22,7 +22,16 @@ namespace WordsCount
     {
         public MainWindow()
         {
+            var loginWindow = new LoginWindow();
+            loginWindow.ShowDialog();
             InitializeComponent();
+            AppDomain.CurrentDomain.ProcessExit += OnExit;
+        }
+
+        private static void OnExit(object obj, EventArgs a)
+        {
+            MessageBox.Show("Salut!");
+            Environment.Exit(0);
         }
     }
 }

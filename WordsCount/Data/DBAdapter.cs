@@ -3,14 +3,17 @@ using WordsCount.Models;
 
 namespace WordsCount.Data
 {
-    public static class DBAdapter
+    public static class DbAdapter
     {
         public static List<User> Users { get; set; }
 
-        static DBAdapter()
+        static DbAdapter()
         {
-            Users.Add(new User("Sergiy", "Sukharskyi", "sergiy@gmail.com", "somepass"));
-            Users.Add(new User("Bodia", "Liba", "liba@gmail.com", "somepass2"));
+            Users = new List<User>
+            {
+                new User("lost", "Sergiy", "Sukharskyi", "sergiy@gmail.com", "somepass"),
+                new User("lbodia", "Bodia", "Liba", "liba@gmail.com", "somepass2")
+            };
         }
     }
 }
