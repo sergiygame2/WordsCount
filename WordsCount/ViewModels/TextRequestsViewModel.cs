@@ -10,7 +10,7 @@ namespace WordsCount.ViewModels
         private RelayCommand _logOutCommand;
         private RelayCommand _myTextRequestsCommand;
         private RelayCommand _exitCommand;
-
+    
         public RelayCommand LogOutCommand => _logOutCommand ?? (_logOutCommand = new RelayCommand(LogOut));
 
         public RelayCommand MyTextRequestsCommand => _myTextRequestsCommand ?? (_myTextRequestsCommand = new RelayCommand(OpenTextRequests));

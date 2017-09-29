@@ -1,7 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using WordsCount.Commands;
+using WordsCount.Models;
+using WordsCount.Services;
 
 namespace WordsCount.ViewModels
 {
@@ -10,6 +13,13 @@ namespace WordsCount.ViewModels
         private RelayCommand _openMainWindowCommand;
 
         public RelayCommand OpenRequestsCommand => _openMainWindowCommand ?? (_openMainWindowCommand = new RelayCommand(OpenRequestsWindow));
+
+        public List<TextRequest> UserTextRequests { get; set; }
+
+        public RequestsHistoryViewModel()
+        {
+            UserTextRequests = StationManager.CurrentUser.TextRequests;
+        }
 
         private void OpenRequestsWindow(object obj)
         {
