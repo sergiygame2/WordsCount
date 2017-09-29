@@ -39,28 +39,15 @@ namespace WordsCount.ViewModels
             }
         }
 
-        public RelayCommand SignUpCommand
-        {
-            get
-            {
-                return _signUpCommand ?? (_signUpCommand = new RelayCommand(SignUp,
-                           o => !String.IsNullOrEmpty(Username) &&
-                                !String.IsNullOrEmpty(Password)));
-            }
-        }
-        
+        public RelayCommand SignUpCommand => _signUpCommand ?? (_signUpCommand = new RelayCommand(SignUp));
+
         private void SignUp(object obj)
         {
-
-            if (DbAdapter.Users.Any(user => user.UserName == Username))
-            {
-                MessageBox.Show("User with this username already exists");
-                return;
-            }
-            //DbAdapter.Users.Add(new User(Username, Password));
-            MessageBox.Show("User successfully created");
+            OnRequestClose(false);
+            var signUpWindow = new SignUpWindow();
+            signUpWindow.ShowDialog();
         }
-        
+
         internal string Password
         {
             get => _userCandidate.HashPassword;
@@ -79,7 +66,6 @@ namespace WordsCount.ViewModels
 
         private void SignIn(object obj)
         {
-
             var currentUser = DbAdapter.Users.FirstOrDefault(user => user.UserName == Username &&
                                                                      user.HashPassword == Password);
             if (currentUser == null)
@@ -87,7 +73,6 @@ namespace WordsCount.ViewModels
                 MessageBox.Show("Wrong Username or Password");
                 return;
             }
-
             StationManager.CurrentUser = currentUser;
             MessageBox.Show("You have entered just now");
             OnRequestClose(false);

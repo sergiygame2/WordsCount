@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WordsCount"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="300" Width="300" MinHeight="250" MaxHeight="250" MinWidth="170" MaxWidth="400">
+        Title="Login" Height="300" Width="300" MinHeight="250" MaxHeight="250" MinWidth="170" MaxWidth="400">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>

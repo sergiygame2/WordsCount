@@ -1,31 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using WordsCount.Services;
+using WordsCount.ViewModels;
 
 namespace WordsCount
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             var loginWindow = new LoginWindow();
             loginWindow.ShowDialog();
             InitializeComponent();
+            UserNameLabel.Content = StationManager.CurrentUser.UserName;
+            _mainViewModel = new MainViewModel();
+            _mainViewModel.RequestClose += Close;
+            DataContext = _mainViewModel;
             AppDomain.CurrentDomain.ProcessExit += OnExit;
+        }
+
+        private readonly MainViewModel _mainViewModel;
+
+        private void Close(bool isQuitApp)
+        {
+            if (!isQuitApp)
+            {
+                Close();
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
         }
 
         private static void OnExit(object obj, EventArgs a)

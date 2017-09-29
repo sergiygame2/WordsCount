@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WordsCount.Models;
 using WordsCount.ViewModels;
 
@@ -19,28 +8,29 @@ namespace WordsCount
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class LoginWindow
     {
         public LoginWindow()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
-            LoginViewModel = new LoginViewModel(new User());
-            LoginViewModel.RequestClose += Close;
-            DataContext = LoginViewModel;        
+            _loginViewModel = new LoginViewModel(new User());
+            _loginViewModel.RequestClose += Close;
+            DataContext = _loginViewModel;        
         }
 
-        private LoginViewModel LoginViewModel { get; set; }
+        private readonly LoginViewModel _loginViewModel;
 
         private void Password_OnPasswordChanged(object sender, RoutedEventArgs e)
         {
-            LoginViewModel.Password = Password.Password;
+            _loginViewModel.Password = Password.Password;
         }
         
         private void Close(bool isQuitApp)
         {
             if (!isQuitApp)
             {
-                this.Close();
+                Close();
             }
             else
             {

@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button Content="Logout" HorizontalAlignment="Left" Margin="432,10,0,0" VerticalAlignment="Top" Width="75" Command="{Binding LogOutCommand}"/>
+        <Label Content="Label" Name="UserNameLabel" HorizontalAlignment="Left" Margin="347,10,0,0" VerticalAlignment="Top" Width="70"/>
     </Grid>
 </Window>
