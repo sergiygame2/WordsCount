@@ -7,29 +7,29 @@
         xmlns:viewModels="clr-namespace:WordsCount.ViewModels"
         xmlns:models="clr-namespace:WordsCount.Models"
         mc:Ignorable="d"
-        Title="RequestsHistoryWindow" Height="322" Width="400">
+        Title="RequestsHistoryWindow" Height="500" Width="700" MaxWidth="700" MaxHeight="500" MinWidth="700" MinHeight="500">
     <Grid>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="307,10,0,0" VerticalAlignment="Top" Width="75" Command="{Binding OpenRequestsCommand}"/>
-        <ListBox ItemsSource="{Binding UserTextRequests}" HorizontalAlignment="Left" Height="210" Margin="10,71,0,0" VerticalAlignment="Top" Width="372">
+        <Button Content="Back" HorizontalAlignment="Left" Margin="587,10,0,0" VerticalAlignment="Top" Width="95" Height="30" Command="{Binding OpenRequestsCommand}"/>
+        <ListBox ItemsSource="{Binding UserTextRequests}" HorizontalAlignment="Left" Height="378" Margin="10,91,0,0" VerticalAlignment="Top" Width="672">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type models:TextRequest}">
                     <StackPanel Orientation="Horizontal">
-                        <Label HorizontalAlignment="Left" MaxWidth="165" Width="150" Content="{Binding Path}" />
-                        <Label MaxWidth="49" Width="49" Content="{Binding WordsAmount}" />
-                        <Label MaxWidth="49" Width="49" Content="{Binding SymbolsAmount}" />
-                        <Label MaxWidth="49" Width="49" Content="{Binding LinesAmount}" />
-                        <Label MaxWidth="68" Width="68" HorizontalAlignment="Right" Content="{Binding CreatedAt}" />
+                        <Label HorizontalAlignment="Left" FontSize="15" MaxWidth="339" Width="339" Content="{Binding Path}" />
+                        <Label MaxWidth="65" Width="65" FontSize="15" HorizontalContentAlignment="Center" Content="{Binding WordsAmount}" />
+                        <Label MaxWidth="65" Width="65" FontSize="15" HorizontalContentAlignment="Center" Content="{Binding SymbolsAmount}" />
+                        <Label MaxWidth="70" Width="70" FontSize="15" HorizontalContentAlignment="Center" Content="{Binding LinesAmount}" />
+                        <Label MaxWidth="115" Width="115" FontSize="15" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Content="{Binding CreatedAt}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.Resources>
         </ListBox>
 
-        <Label Content="My requests history" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.228,0.115"/>
-        <Label Content="Path" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-        <Label Content="Symbols" HorizontalAlignment="Left" Margin="154,41,0,0" VerticalAlignment="Top"/>
-        <Label Content="Words" HorizontalAlignment="Left" Margin="213,41,0,0" VerticalAlignment="Top"/>
-        <Label Content="Lines" HorizontalAlignment="Left" Margin="262,41,0,0" VerticalAlignment="Top"/>
-        <Label Content="Date" HorizontalAlignment="Left" Margin="330,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.79,0.667"/>
+        <Label Content="My requests history" HorizontalAlignment="Left" Margin="10,10,0,0" FontSize="15" VerticalAlignment="Top" RenderTransformOrigin="0.228,0.115"/>
+        <Label Content="Path" HorizontalAlignment="Left" HorizontalContentAlignment="Left" FontSize="15" Margin="10,43,0,0" VerticalAlignment="Top" Width="339"/>
+        <Label Content="Symbols" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="15" Margin="354,43,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.056,0.5" Width="68"/>
+        <Label Content="Words" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="15" Margin="422,43,0,0" VerticalAlignment="Top" Width="65"/>
+        <Label Content="Lines" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="15" Margin="492,43,0,0" VerticalAlignment="Top" Width="60"/>
+        <Label Content="Date" HorizontalAlignment="Left" HorizontalContentAlignment="Left" FontSize="15" Margin="587,43,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.79,0.667" Width="95"/>
 
     </Grid>
 </Window>

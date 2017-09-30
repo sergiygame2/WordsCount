@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using WordsCount.Models;
 
 namespace WordsCount.Data
@@ -13,8 +11,8 @@ namespace WordsCount.Data
         {
             Users = new List<User>
             {
-                new User("lost", "Sergiy", "Sukharskyi", "sergiy@gmail.com", "somepass"),
-                new User("lbodia", "Bodia", "Liba", "liba@gmail.com", "somepass2")
+                new User("lost", "Sergiy", "Sukharskyi", "sergiy@gmail.com", "7KNSXUwiFzFEFw7Sxbd8GA=="), // somepass
+                new User("lbodia", "Bodia", "Liba", "liba@gmail.com", "dDny3bmVlJPxdUErUFowZA==") // somepass2
             };
             Users[0].TextRequests.Add(new TextRequest("d:\\docs\\dotnet.txt", 26, 6, 4));
             Users[0].TextRequests.Add(new TextRequest("d:\\docs\\index.txt", 15, 5, 2));

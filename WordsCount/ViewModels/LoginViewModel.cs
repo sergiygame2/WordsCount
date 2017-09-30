@@ -67,7 +67,7 @@ namespace WordsCount.ViewModels
         private void SignIn(object obj)
         {
             var currentUser = DbAdapter.Users.FirstOrDefault(user => user.UserName == Username &&
-                                                                     user.HashPassword == Password);
+                                                                     user.HashPassword == DataHelper.Hash(Password));
             if (currentUser == null)
             {
                 MessageBox.Show("Wrong Username or Password");

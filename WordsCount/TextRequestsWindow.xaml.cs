@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using WordsCount.Services;
 using WordsCount.ViewModels;
 
@@ -55,6 +56,23 @@ namespace WordsCount
             SymbolsAmountValue.Content = textAnalyzer.CountSymbols();
             WordsAmountValue.Content = textAnalyzer.CountWords();
             LinesAmountValue.Content = textAnalyzer.CountLines();
+            ShowResultsLabels();
+        }
+
+        private void ShowResultsLabels()
+        {
+            SymbolsAmount.Visibility = Visibility.Visible;
+            SymbolsAmountValue.Visibility = Visibility.Visible;
+            WordsAmount.Visibility = Visibility.Visible;
+            WordsAmountValue.Visibility = Visibility.Visible;
+            LinesAmount.Visibility = Visibility.Visible;
+            LinesAmountValue.Visibility = Visibility.Visible;
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            this.DragMove();
         }
     }
 }

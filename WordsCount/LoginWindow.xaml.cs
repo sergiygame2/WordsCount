@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using WordsCount.Models;
 using WordsCount.ViewModels;
 
@@ -38,6 +39,12 @@ namespace WordsCount
                 MessageBox.Show("Salut!");
                 Environment.Exit(0);
             }
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            this.DragMove();
         }
     }
 }

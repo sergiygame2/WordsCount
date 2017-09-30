@@ -42,5 +42,11 @@ namespace WordsCount
                 Environment.Exit(0);
             }
         }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            this.DragMove();
+        }
     }
 }
