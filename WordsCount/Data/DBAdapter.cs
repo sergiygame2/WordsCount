@@ -16,24 +16,8 @@ namespace WordsCount.Data
                 new User("lost", "Sergiy", "Sukharskyi", "sergiy@gmail.com", "somepass"),
                 new User("lbodia", "Bodia", "Liba", "liba@gmail.com", "somepass2")
             };
-            Users[0].TextRequests.Add(new TextRequest
-            {
-                Id = 1,
-                Path = "d:\\docs\\dotnet.txt",
-                CreatedAt = DateTime.Today,
-                LinesAmount = 3,
-                SymbolsAmount = 25,
-                WordsAmount = 4
-            });
-            Users[0].TextRequests.Add(new TextRequest
-            {
-                Id = 2,
-                Path = "d:\\docs\\index.txt",
-                CreatedAt = DateTime.Today,
-                LinesAmount = 3,
-                SymbolsAmount = 25,
-                WordsAmount = 4
-            });
+            Users[0].TextRequests.Add(new TextRequest("d:\\docs\\dotnet.txt", 26, 6, 4));
+            Users[0].TextRequests.Add(new TextRequest("d:\\docs\\index.txt", 15, 5, 2));
         }
     }
 }

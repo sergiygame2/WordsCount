@@ -20,8 +20,8 @@ namespace WordsCount
             textRequestsViewModel.RequestClose += Close;
             textRequestsViewModel.RequestFillPath += FillPath;
             textRequestsViewModel.RequestFillText += FillText;
+            textRequestsViewModel.RequestFillResults += FillResults;
             DataContext = textRequestsViewModel;
-            AppDomain.CurrentDomain.ProcessExit += OnExit;
         }
 
         private void Close(bool isQuitApp)
@@ -50,10 +50,11 @@ namespace WordsCount
             FileText.Text = !String.IsNullOrEmpty(text) ? text : "Text is empty";
         }
 
-        private static void OnExit(object obj, EventArgs a)
+        private void FillResults(TextAnalyzer textAnalyzer)
         {
-            MessageBox.Show("Salut!");
-            Environment.Exit(0);
+            SymbolsAmountValue.Content = textAnalyzer.CountSymbols();
+            WordsAmountValue.Content = textAnalyzer.CountWords();
+            LinesAmountValue.Content = textAnalyzer.CountLines();
         }
     }
 }

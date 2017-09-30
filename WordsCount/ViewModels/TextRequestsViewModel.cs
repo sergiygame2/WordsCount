@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Microsoft.Win32;
 using WordsCount.Commands;
+using WordsCount.Services;
+using WordsCount.Models;
 
 namespace WordsCount.ViewModels
 {
@@ -34,19 +36,36 @@ namespace WordsCount.ViewModels
             var openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                // TODO ADD FILE SERVICE HERE
                 var filePath = openFileDialog.FileName;
                 var fileText = File.ReadAllText(filePath);
                 OnRequestFillPath(filePath);
                 OnRequestFillText(fileText);
+                HandeRequestText(filePath, fileText);
             }
         }
 
+        private void HandeRequestText(string filePath, string text)
+        {
+            var textAnalyzer = new TextAnalyzer(text);
+            var textRequest = new TextRequest(filePath, textAnalyzer);
+
+            StationManager.CurrentUser.TextRequests.Add(textRequest);
+            OnRequestFillResults(textAnalyzer);
+        }
+            
         private void OpenTextRequests(object obj)
         {
             OnRequestClose(false);
             var requestsHistoryWindow = new RequestsHistoryWindow();
             requestsHistoryWindow.ShowDialog();
+        }
+
+        internal event FillResultsHandler RequestFillResults;
+        public delegate void FillResultsHandler(TextAnalyzer textAnalyzer);
+
+        protected virtual void OnRequestFillResults(TextAnalyzer textAnalyzer)
+        {
+            RequestFillResults?.Invoke(textAnalyzer);
         }
 
         internal event FillTextHandler RequestFillText;
