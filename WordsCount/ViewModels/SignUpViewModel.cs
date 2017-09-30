@@ -48,15 +48,10 @@ namespace WordsCount.ViewModels
         internal string Password
         {
             get => _userCandidate.HashPassword;
-            set => _userCandidate.HashPassword = DataHelper.Hash(value);
+            set => _userCandidate.HashPassword = value;
         }
 
-        private string _repeatedPassword;
-        internal string RepeatedPassword
-        {
-            get => _repeatedPassword;
-            set => _repeatedPassword = DataHelper.Hash(value);
-        }
+        internal string RepeatedPassword { get; set; }
 
         public string Username
         {

@@ -51,7 +51,7 @@ namespace WordsCount.ViewModels
         internal string Password
         {
             get => _userCandidate.HashPassword;
-            set => _userCandidate.HashPassword = DataHelper.Hash(value);
+            set => _userCandidate.HashPassword = value;
         }
 
         public string Username
