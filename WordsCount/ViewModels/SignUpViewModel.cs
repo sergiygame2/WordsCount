@@ -9,6 +9,7 @@ using WordsCount.Commands;
 using WordsCount.Data;
 using WordsCount.Models;
 using WordsCount.Services;
+using System.Text.RegularExpressions;
 
 namespace WordsCount.ViewModels
 {
@@ -133,17 +134,12 @@ namespace WordsCount.ViewModels
         internal event CloseHandler RequestClose;
         public delegate void CloseHandler(bool isQuitApp);
 
-        private static bool IsValid(string emailaddress)
+        private static bool IsValid(string emailAddress)
         {
-            try
-            {
-                var mailAddress = new MailAddress(emailaddress);
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            Match match = regex.Match(emailAddress);
+
+            return match.Success;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
