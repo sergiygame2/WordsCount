@@ -42,7 +42,8 @@ namespace WordsCount.ViewModels
                                 !String.IsNullOrEmpty(FirstName) &&
                                 !String.IsNullOrEmpty(LastName) &&
                                 !String.IsNullOrEmpty(Email) &&
-                                !String.IsNullOrEmpty(Password)));
+                                !String.IsNullOrEmpty(Password) &&
+                                !String.IsNullOrEmpty(RepeatedPassword)));
             }
         }
         
