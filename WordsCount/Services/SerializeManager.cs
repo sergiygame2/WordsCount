@@ -27,7 +27,10 @@ namespace WordsCount.Services
             try
             {
                 var jsonFormatter = new DataContractJsonSerializer(typeof(TObject));
-                var fileName = CreateAndGetPath(obj.FileName);
+                string fileName = CreateAndGetPath(obj.FileName);
+
+                if (File.Exists(fileName))
+                    File.Delete(fileName);
                 
                 using (var fs = new FileStream(fileName, FileMode.OpenOrCreate))
                 {
@@ -47,6 +50,7 @@ namespace WordsCount.Services
             {
                 var jsonFormatter = new DataContractJsonSerializer(typeof(TObject));
                 var filePath = CreateAndGetPath(fileName);
+
                 if (!File.Exists(filePath))
                     throw new FileNotFoundException();
 
