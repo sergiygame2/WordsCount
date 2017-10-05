@@ -112,7 +112,7 @@ namespace WordsCount.ViewModels
                 MessageBox.Show("User with this email already exists");
                 return;
             }
-            if (!IsValid(Email))
+            if (!IsValidEmail(Email))
             {
                 MessageBox.Show("Invalid email");
                 return;
@@ -134,7 +134,7 @@ namespace WordsCount.ViewModels
         internal event CloseHandler RequestClose;
         public delegate void CloseHandler(bool isQuitApp);
 
-        private static bool IsValid(string emailAddress)
+        private static bool IsValidEmail(string emailAddress)
         {
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             Match match = regex.Match(emailAddress);
