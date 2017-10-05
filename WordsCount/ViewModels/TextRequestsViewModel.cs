@@ -6,6 +6,7 @@ using Microsoft.Win32;
 using WordsCount.Commands;
 using WordsCount.Services;
 using WordsCount.Models;
+using System.Windows;
 
 namespace WordsCount.ViewModels
 {
@@ -89,8 +90,17 @@ namespace WordsCount.ViewModels
         private void OpenFile(object obj)
         {
             var openFileDialog = new OpenFileDialog();
+
             if (openFileDialog.ShowDialog() == true)
             {
+                var extension = Path.GetExtension(openFileDialog.FileName);
+
+                if (extension != ".txt")
+                {
+                    MessageBox.Show("Wrong file format! You can download only .txt files");
+                    return;
+                }
+
                 FilePath = openFileDialog.FileName;
                 FileText = File.ReadAllText(FilePath);
                 HandeRequestText();

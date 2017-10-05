@@ -68,6 +68,7 @@
     <Compile Include="RequestsHistoryWindow.xaml.cs">
       <DependentUpon>RequestsHistoryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\Validator.cs" />
     <Compile Include="TextRequestsWindow.xaml.cs">
       <DependentUpon>TextRequestsWindow.xaml</DependentUpon>
     </Compile>
