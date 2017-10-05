@@ -4,20 +4,15 @@ using WordsCount.Models;
 namespace WordsCount.Services
 {
     [DataContract]
-    public class StationManager : ISerializable
+    public class StationManager
     {
-        public string FileName { get; set; } = "currentUser.json";
-
         public static User CurrentUser { get; set; }
 
-        [DataMember]
-        public int? LoggedInUserId { get; set; }
+        public static readonly string UserFilePath;
 
-        public StationManager() { }
-
-        public StationManager(int? id)
+        static StationManager()
         {
-            LoggedInUserId = id;
+            UserFilePath = "user.json";
         }
     }
 }

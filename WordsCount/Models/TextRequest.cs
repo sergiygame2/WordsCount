@@ -7,7 +7,6 @@ namespace WordsCount.Models
     [DataContract]
     public class TextRequest : Services.ISerializable
     {
-        private static int _amount;
         [DataMember]
         public int Id { get; set; }
         [DataMember]
@@ -20,10 +19,12 @@ namespace WordsCount.Models
         public int LinesAmount { get; set; }
         [DataMember]
         public DateTime CreatedAt { get; set; }
+
         // properties for DB relation
         // public int UserId { get; set; } 
         // public User User { get; set; }
 
+        private static int _amount;
 
         static TextRequest() => _amount = 0;
 

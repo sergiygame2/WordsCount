@@ -73,9 +73,12 @@ namespace WordsCount.ViewModels
                 MessageBox.Show("Wrong Username or Password");
                 return;
             }
+
             StationManager.CurrentUser = currentUser;
-            SerializeManager.Serialize(new StationManager(currentUser.Id));
+            SerializeManager.Serialize(currentUser);
+
             OnRequestClose(false);
+
             var textRequestsWindow = new TextRequestsWindow();
             textRequestsWindow.ShowDialog();
         }

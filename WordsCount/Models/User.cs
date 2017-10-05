@@ -8,8 +8,6 @@ namespace WordsCount.Models
     [DataContract]
     public class User : Services.ISerializable
     {
-        private static int _amount;
-
         [DataMember]
         public int Id { get; set; }
         [DataMember]
@@ -24,8 +22,10 @@ namespace WordsCount.Models
         public string HashPassword { get; set; }
         [DataMember]
         public DateTime LastVisit { get; set; }
-        //[DataMember]
+        [DataMember]
         public List<TextRequest> TextRequests { get; set; }
+
+        private static int _amount;
 
         static User() => _amount = 0;
         
@@ -43,6 +43,6 @@ namespace WordsCount.Models
             TextRequests = new List<TextRequest>();
         }
 
-        public string FileName => "users.json";
+        public string FileName => "user.json";
     }
 }

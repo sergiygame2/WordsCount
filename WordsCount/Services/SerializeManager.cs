@@ -28,9 +28,6 @@ namespace WordsCount.Services
             {
                 var jsonFormatter = new DataContractJsonSerializer(typeof(TObject));
                 string fileName = CreateAndGetPath(obj.FileName);
-
-                if (File.Exists(fileName))
-                    File.Delete(fileName);
                 
                 using (var fs = new FileStream(fileName, FileMode.OpenOrCreate))
                 {
@@ -63,6 +60,15 @@ namespace WordsCount.Services
             {
                 // TODO add logging
                 return new TObject();
+            }
+        }
+
+        public static void RemoveFile(string fileName)
+        {
+            string filePath = CreateAndGetPath(fileName);
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
             }
         }
     }

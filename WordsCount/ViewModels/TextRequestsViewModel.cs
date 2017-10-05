@@ -82,8 +82,10 @@ namespace WordsCount.ViewModels
         private void LogOut(object obj)
         {
             OnRequestClose(false);
+
             StationManager.CurrentUser = null;
-            SerializeManager.Serialize(new StationManager());
+            SerializeManager.RemoveFile(StationManager.UserFilePath);
+
             var loginWindow = new LoginWindow();
             loginWindow.ShowDialog();
         }

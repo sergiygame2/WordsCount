@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using WordsCount.Data;
 using WordsCount.Services;
 using WordsCount.ViewModels;
 
@@ -33,6 +35,10 @@ namespace WordsCount
             }
             else
             {
+                // Serialize user before exit, to update it's fields at next start of program
+                SerializeManager.RemoveFile(StationManager.UserFilePath);
+                SerializeManager.Serialize(StationManager.CurrentUser);
+
                 MessageBox.Show("Salut!");
                 Environment.Exit(0);
             }
