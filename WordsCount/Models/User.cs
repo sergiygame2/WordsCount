@@ -1,19 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using WordsCount.Helpers;
 
 namespace WordsCount.Models
 {
-    public class User
+    [DataContract]
+    public class User : Services.ISerializable
     {
         private static int _amount;
+
+        [DataMember]
         public int Id { get; set; }
+        [DataMember]
         public string UserName { get; set; }
+        [DataMember]
         public string FirstName { get; set; }
+        [DataMember]
         public string LastName { get; set; }
+        [DataMember]
         public string Email { get; set; }
+        [DataMember]
         public string HashPassword { get; set; }
+        [DataMember]
         public DateTime LastVisit { get; set; }
+        //[DataMember]
         public List<TextRequest> TextRequests { get; set; }
 
         static User() => _amount = 0;
@@ -31,5 +42,7 @@ namespace WordsCount.Models
             LastVisit = DateTime.Now;
             TextRequests = new List<TextRequest>();
         }
+
+        public string FileName => "users.json";
     }
 }

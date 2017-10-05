@@ -1,5 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Windows;
+using System.Windows.Media;
+using WordsCount.Data;
 using WordsCount.Services;
 using WordsCount.ViewModels;
 
@@ -13,8 +17,18 @@ namespace WordsCount
         public MainWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            var loginWindow = new LoginWindow();
-            loginWindow.ShowDialog();
+            var sm = SerializeManager.Deserialize<StationManager>("currentUser.json");
+            if (sm?.LoggedInUserId != null && sm.LoggedInUserId != 0)
+            {
+                StationManager.CurrentUser = DbAdapter.Users.SingleOrDefault(u => u.Id == sm.LoggedInUserId);
+                var textRequestsWindow = new TextRequestsWindow();
+                textRequestsWindow.ShowDialog();
+            }
+            else
+            {
+                var loginWindow = new LoginWindow();
+                loginWindow.ShowDialog();
+            }
             InitializeComponent();
             AppDomain.CurrentDomain.ProcessExit += OnExit;
         }

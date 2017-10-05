@@ -74,6 +74,7 @@ namespace WordsCount.ViewModels
                 return;
             }
             StationManager.CurrentUser = currentUser;
+            SerializeManager.Serialize(new StationManager(currentUser.Id));
             OnRequestClose(false);
             var textRequestsWindow = new TextRequestsWindow();
             textRequestsWindow.ShowDialog();
