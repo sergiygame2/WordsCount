@@ -10,6 +10,7 @@ using WordsCount.Data;
 using WordsCount.Models;
 using WordsCount.Services;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace WordsCount.ViewModels
 {
@@ -102,45 +103,37 @@ namespace WordsCount.ViewModels
 
         private void SignUp(object obj)
         {
-            if (DbAdapter.Users.Any(user => user.UserName == Username))
+            var validationFields = new List<KeyValuePair<bool, string>>
             {
-                MessageBox.Show("User with this username already exists");
-                return;
-            }
-            if (DbAdapter.Users.Any(user => user.Email == Email))
+                new KeyValuePair<bool, string>(Validator.IsExistingUsername(Username), "User with such username already exists!"),
+                new KeyValuePair<bool, string>(Validator.IsEmail(Email), "Email is not valid!"),
+                new KeyValuePair<bool, string>(Validator.IsString(FirstName), "Firstname must contain only letters!"),
+                new KeyValuePair<bool, string>(Validator.IsString(LastName), "Lastname must contain only letters!"),
+                new KeyValuePair<bool, string>(Validator.IsPasswordMatch(Password, RepeatedPassword), "Passwords do not match!"),
+            };
+
+            foreach (var field in validationFields)
             {
-                MessageBox.Show("User with this email already exists");
-                return;
+                if (field.Key == false)
+                {
+                    MessageBox.Show(field.Value);
+                    return;
+                }
             }
-            if (!IsValidEmail(Email))
-            {
-                MessageBox.Show("Invalid email");
-                return;
-            }
-            if (RepeatedPassword != Password)
-            {
-                MessageBox.Show("Passwords missmatch");
-                return;
-            }
+
             var currentUser = new User(Username, FirstName, LastName, Email, Password);
+
             DbAdapter.Users.Add(currentUser);
             StationManager.CurrentUser = currentUser;
             MessageBox.Show("You have successfully signed-up!");
             OnRequestClose(false);
+
             var textRequestsWindow = new TextRequestsWindow();
             textRequestsWindow.ShowDialog();
         }
 
         internal event CloseHandler RequestClose;
         public delegate void CloseHandler(bool isQuitApp);
-
-        private static bool IsValidEmail(string emailAddress)
-        {
-            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-            Match match = regex.Match(emailAddress);
-
-            return match.Success;
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
