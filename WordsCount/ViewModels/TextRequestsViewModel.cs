@@ -24,6 +24,61 @@ namespace WordsCount.ViewModels
 
         public RelayCommand ExitCommand => _exitCommand ?? (_exitCommand = new RelayCommand(obj => OnRequestClose(true)));
 
+        private string _filePath = "Path to file...";
+        public string FilePath
+        {
+            get => _filePath;
+            set
+            {
+                _filePath = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _fileText;
+        public string FileText
+        {
+            get => _fileText;
+            set
+            {
+                _fileText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _symbolsAmount;
+        public int SymbolsAmount
+        {
+            get => _symbolsAmount;
+            set
+            {
+                _symbolsAmount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _wordsAmount;
+        public int WordsAmount
+        {
+            get => _wordsAmount;
+            set
+            {
+                _wordsAmount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private int _linesAmount;
+        public int LinesAmount
+        {
+            get => _linesAmount;
+            set
+            {
+                _linesAmount = value;
+                OnPropertyChanged();
+            }
+        }
+
         private void LogOut(object obj)
         {
             OnRequestClose(false);
@@ -36,21 +91,23 @@ namespace WordsCount.ViewModels
             var openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                var filePath = openFileDialog.FileName;
-                var fileText = File.ReadAllText(filePath);
-                OnRequestFillPath(filePath);
-                OnRequestFillText(fileText);
-                HandeRequestText(filePath, fileText);
+                FilePath = openFileDialog.FileName;
+                FileText = File.ReadAllText(FilePath);
+                HandeRequestText();
             }
         }
 
-        private void HandeRequestText(string filePath, string text)
+        private void HandeRequestText()
         {
-            var textAnalyzer = new TextAnalyzer(text);
-            var textRequest = new TextRequest(filePath, textAnalyzer);
+            var textAnalyzer = new TextAnalyzer(FileText);
+            var textRequest = new TextRequest(FilePath, textAnalyzer);
 
+            SymbolsAmount = textAnalyzer.CountSymbols();
+            WordsAmount = textAnalyzer.CountWords();
+            LinesAmount = textAnalyzer.CountLines();
+            
             StationManager.CurrentUser.TextRequests.Add(textRequest);
-            OnRequestFillResults(textAnalyzer);
+            OnRequestShowResults();
         }
             
         private void OpenTextRequests(object obj)
@@ -60,12 +117,12 @@ namespace WordsCount.ViewModels
             requestsHistoryWindow.ShowDialog();
         }
 
-        internal event FillResultsHandler RequestFillResults;
-        public delegate void FillResultsHandler(TextAnalyzer textAnalyzer);
+        internal event FillResultsHandler RequestShowResults;
+        public delegate void FillResultsHandler();
 
-        protected virtual void OnRequestFillResults(TextAnalyzer textAnalyzer)
+        protected virtual void OnRequestShowResults()
         {
-            RequestFillResults?.Invoke(textAnalyzer);
+            RequestShowResults?.Invoke();
         }
 
         internal event FillTextHandler RequestFillText;

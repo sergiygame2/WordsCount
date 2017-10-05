@@ -7,7 +7,6 @@ using System.Windows;
 using JetBrains.Annotations;
 using WordsCount.Commands;
 using WordsCount.Data;
-using WordsCount.Helpers;
 using WordsCount.Models;
 using WordsCount.Services;
 

@@ -21,7 +21,7 @@ namespace WordsCount
             textRequestsViewModel.RequestClose += Close;
             textRequestsViewModel.RequestFillPath += FillPath;
             textRequestsViewModel.RequestFillText += FillText;
-            textRequestsViewModel.RequestFillResults += FillResults;
+            textRequestsViewModel.RequestShowResults += ShowResultsLabels;
             DataContext = textRequestsViewModel;
         }
 
@@ -49,14 +49,6 @@ namespace WordsCount
         private void FillText(string text)
         {
             FileText.Text = !String.IsNullOrEmpty(text) ? text : "Text is empty";
-        }
-
-        private void FillResults(TextAnalyzer textAnalyzer)
-        {
-            SymbolsAmountValue.Content = textAnalyzer.CountSymbols();
-            WordsAmountValue.Content = textAnalyzer.CountWords();
-            LinesAmountValue.Content = textAnalyzer.CountLines();
-            ShowResultsLabels();
         }
 
         private void ShowResultsLabels()

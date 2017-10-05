@@ -11,14 +11,14 @@
         <Label Content="Label" FontSize="15"  Name="UserNameLabel" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="95" RenderTransformOrigin="-4.471,0.308" Height="29"/>
         <Button Content="My requests" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="95" Height="30" RenderTransformOrigin="0.547,1.05"  Command="{Binding MyTextRequestsCommand}"/>
         <Button Content="Exit" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Width="95" Height="30" RenderTransformOrigin="0.547,1.05"  Command="{Binding ExitCommand}"/>
-        <TextBox Name="FileText" HorizontalAlignment="Left" Height="398" Margin="110,43,0,0" TextWrapping="Wrap" Text="" IsReadOnly="True" VerticalAlignment="Top" Width="572"/>
-        <Label FontSize="15" Content="Path to file..." Name="PathLabel" HorizontalAlignment="Left" Margin="110,7,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="454" Height="32"/>
+        <TextBox Name="FileText" HorizontalAlignment="Left" Height="398" Margin="110,43,0,0" TextWrapping="Wrap" Text="{Binding FileText, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" VerticalAlignment="Top" Width="572"/>
+        <Label FontSize="15" Content="{Binding FilePath, UpdateSourceTrigger=PropertyChanged}" Name="PathLabel" HorizontalAlignment="Left" Margin="110,7,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="454" Height="32"/>
         <Button Content="Open file" HorizontalAlignment="Left" Margin="587,8,0,0" VerticalAlignment="Top" Width="95" Height="30" Command="{Binding OpenFileCommand}"/>
         <Label FontSize="13" Visibility="Hidden" x:Name="SymbolsAmount" Content="Symbols:" HorizontalAlignment="Left" Margin="113,441,0,0" VerticalAlignment="Top" Height="28" Width="62"/>
-        <Label FontSize="13" Visibility="Hidden" x:Name="SymbolsAmountValue" Content="0" HorizontalAlignment="Left" Margin="179,441,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.618,0.57" Height="28" Width="82"/>
+        <Label FontSize="13" Visibility="Hidden" x:Name="SymbolsAmountValue" Content="{Binding SymbolsAmount, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="179,441,0,0" VerticalAlignment="Top" RenderTransformOrigin="4.618,0.57" Height="28" Width="82"/>
         <Label FontSize="13" Visibility="Hidden" x:Name="WordsAmount" Content="Words:" HorizontalAlignment="Left" Margin="310,441,0,0" VerticalAlignment="Top" Height="28" Width="51"/>
-        <Label FontSize="13" Visibility="Hidden" x:Name="WordsAmountValue" Content="0" HorizontalAlignment="Left" Margin="366,441,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.388,0.445" Height="28" Width="82"/>
+        <Label FontSize="13" Visibility="Hidden" x:Name="WordsAmountValue" Content="{Binding WordsAmount, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="366,441,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.388,0.445" Height="28" Width="82"/>
         <Label FontSize="13" Visibility="Hidden" x:Name="LinesAmount" Content="Lines:" HorizontalAlignment="Left" Margin="453,441,0,0" VerticalAlignment="Top" Height="28" Width="54"/>
-        <Label FontSize="13" Visibility="Hidden" x:Name="LinesAmountValue" Content="0" HorizontalAlignment="Left" Margin="512,441,0,0" VerticalAlignment="Top" Height="28" Width="87"/>
+        <Label FontSize="13" Visibility="Hidden" x:Name="LinesAmountValue" Content="{Binding LinesAmount, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="512,441,0,0" VerticalAlignment="Top" Height="28" Width="87"/>
     </Grid>
 </Window>
