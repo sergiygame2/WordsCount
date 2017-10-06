@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using WordsCount.Data;
 
 namespace WordsCount.Services
 {
+    // Service for validation (currently used for SignUp form, could be used also in other parts of app)
     public class Validator
     {
         public static bool IsString(string str)
@@ -27,7 +24,7 @@ namespace WordsCount.Services
 
         public static bool IsExistingUsername(string username)
         {
-            return !DbAdapter.Users.Any(user => user.UserName == username);
+            return DbAdapter.Users.All(user => user.UserName != username);
         }
     }
 }

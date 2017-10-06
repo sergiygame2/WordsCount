@@ -44,6 +44,7 @@ namespace WordsCount.ViewModels
         private void SignUp(object obj)
         {
             OnRequestClose(false);
+
             var signUpWindow = new SignUpWindow();
             signUpWindow.ShowDialog();
         }
@@ -66,6 +67,7 @@ namespace WordsCount.ViewModels
 
         private void SignIn(object obj)
         {
+            // After some chackings, set the current user, and open cabinet window
             var currentUser = DbAdapter.Users.FirstOrDefault(user => user.UserName == Username &&
                                                                      user.HashPassword == DataHelper.Hash(Password));
             if (currentUser == null)
@@ -73,8 +75,10 @@ namespace WordsCount.ViewModels
                 MessageBox.Show("Wrong Username or Password");
                 return;
             }
+
             StationManager.CurrentUser = currentUser;
             OnRequestClose(false);
+
             var textRequestsWindow = new TextRequestsWindow();
             textRequestsWindow.ShowDialog();
         }

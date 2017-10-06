@@ -13,8 +13,10 @@ namespace WordsCount
         public MainWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             var loginWindow = new LoginWindow();
             loginWindow.ShowDialog();
+
             InitializeComponent();
             AppDomain.CurrentDomain.ProcessExit += OnExit;
         }

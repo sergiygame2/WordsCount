@@ -15,9 +15,12 @@ namespace WordsCount
         {
             WindowStyle = WindowStyle.None;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             InitializeComponent();
+
             _signUpViewModel = new SignUpViewModel(new User());
             _signUpViewModel.RequestClose += Close;
+
             DataContext = _signUpViewModel;
         }
 
@@ -49,7 +52,7 @@ namespace WordsCount
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
-            this.DragMove();
+            DragMove();
         }
     }
 }

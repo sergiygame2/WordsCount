@@ -3,6 +3,7 @@ using WordsCount.Models;
 
 namespace WordsCount.Data
 {
+    // Static DB. Initializes list of users each time the app is started
     public static class DbAdapter
     {
         public static List<User> Users { get; set; }

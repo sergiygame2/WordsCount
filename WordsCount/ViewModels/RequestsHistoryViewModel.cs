@@ -18,12 +18,15 @@ namespace WordsCount.ViewModels
 
         public RequestsHistoryViewModel()
         {
+            // Set this property when initialized, to show current user requests on form
+            // using mvvm approach and list box
             UserTextRequests = StationManager.CurrentUser.TextRequests;
         }
 
         private void OpenRequestsWindow(object obj)
         {
             OnRequestClose(false);
+
             var textRequestsWindow = new TextRequestsWindow();
             textRequestsWindow.ShowDialog();
         }

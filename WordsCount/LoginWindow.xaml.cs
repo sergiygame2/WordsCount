@@ -13,11 +13,15 @@ namespace WordsCount
     {
         public LoginWindow()
         {
+            // Configuring style of window
             WindowStyle = WindowStyle.None;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             InitializeComponent();
+
             _loginViewModel = new LoginViewModel(new User());
             _loginViewModel.RequestClose += Close;
+
             DataContext = _loginViewModel;        
         }
 
@@ -28,6 +32,7 @@ namespace WordsCount
             _loginViewModel.Password = Password.Password;
         }
         
+        // According to bool variable close form or all app
         private void Close(bool isQuitApp)
         {
             if (!isQuitApp)
@@ -44,7 +49,7 @@ namespace WordsCount
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
-            this.DragMove();
+            DragMove();
         }
     }
 }

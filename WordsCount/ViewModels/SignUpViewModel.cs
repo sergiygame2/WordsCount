@@ -37,6 +37,7 @@ namespace WordsCount.ViewModels
         {
             get
             {
+                // Checking to disable SignUp button untill all fields are filled
                 return _signUpCommand ?? (_signUpCommand = new RelayCommand(SignUp,
                            o => !String.IsNullOrEmpty(Username) &&
                                 !String.IsNullOrEmpty(FirstName) &&
@@ -98,12 +99,14 @@ namespace WordsCount.ViewModels
         private void SignIn(object obj)
         {
             OnRequestClose(false);
+
             var loginWindow = new LoginWindow();
             loginWindow.ShowDialog();
         }
 
         private void SignUp(object obj)
         {
+            // using list of function & error message if function returned false
             var validationFields = new List<KeyValuePair<bool, string>>
             {
                 new KeyValuePair<bool, string>(Validator.IsExistingUsername(Username), "User with such username already exists!"),
@@ -113,6 +116,7 @@ namespace WordsCount.ViewModels
                 new KeyValuePair<bool, string>(Validator.IsPasswordMatch(Password, RepeatedPassword), "Passwords do not match!"),
             };
 
+            // iterating validation funcs and displaying error message
             foreach (var field in validationFields)
             {
                 if (field.Key == false)
@@ -124,8 +128,10 @@ namespace WordsCount.ViewModels
 
             var currentUser = new User(Username, FirstName, LastName, Email, Password);
 
+            // If user is valid, add him to database (static list)
             DbAdapter.Users.Add(currentUser);
             StationManager.CurrentUser = currentUser;
+
             MessageBox.Show("You have successfully signed-up!");
             OnRequestClose(false);
 

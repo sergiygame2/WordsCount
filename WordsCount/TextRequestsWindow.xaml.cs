@@ -15,13 +15,16 @@ namespace WordsCount
         {
             WindowStyle = WindowStyle.None;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             InitializeComponent();
             UserNameLabel.Content = StationManager.CurrentUser.UserName;
+
             var textRequestsViewModel = new TextRequestsViewModel();
             textRequestsViewModel.RequestClose += Close;
             textRequestsViewModel.RequestFillPath += FillPath;
             textRequestsViewModel.RequestFillText += FillText;
             textRequestsViewModel.RequestShowResults += ShowResultsLabels;
+
             DataContext = textRequestsViewModel;
         }
 
@@ -51,6 +54,7 @@ namespace WordsCount
             FileText.Text = !String.IsNullOrEmpty(text) ? text : "Text is empty";
         }
 
+        // Method to show results label when they are available
         private void ShowResultsLabels()
         {
             SymbolsAmount.Visibility = Visibility.Visible;
@@ -61,10 +65,11 @@ namespace WordsCount
             LinesAmountValue.Visibility = Visibility.Visible;
         }
 
+        // Allow to move form
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
-            this.DragMove();
+            DragMove();
         }
     }
 }

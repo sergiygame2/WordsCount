@@ -16,6 +16,7 @@ namespace WordsCount.Services
 
         static TextAnalyzer()
         {
+            // Special characters for text splitting
             LinesDelimeters = new[] {'\n'};
             SymbolsDelimeters = new[] {' ', '\r', '\n'};
             WordsDelimeters = new[] { ' ', '.', ',', '?', '!', '\r', '\n' };
@@ -23,10 +24,12 @@ namespace WordsCount.Services
 
         public TextAnalyzer(string text) => _text = text.Trim();
 
+        // if already counted just return a value, else count
         public int CountSymbols()
         {
             if (_symbolsCount == 0)
             {
+                // count all chars except some special
                 _symbolsCount = _text.Count(c => !SymbolsDelimeters.Contains(c));
             }
 
@@ -37,6 +40,7 @@ namespace WordsCount.Services
         {
             if (_wordsCount == 0)
             {
+                // split text by special characters to retrieve array of words, then count it's amount
                 _wordsCount = _text.Split(WordsDelimeters, StringSplitOptions.RemoveEmptyEntries).Length;
             }
 
@@ -47,6 +51,7 @@ namespace WordsCount.Services
         {
             if (_linesCount == 0)
             {
+                // split text by special line characters
                 _linesCount = _text.Split(LinesDelimeters).Length;
             }
 

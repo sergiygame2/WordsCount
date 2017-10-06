@@ -83,16 +83,19 @@ namespace WordsCount.ViewModels
         private void LogOut(object obj)
         {
             OnRequestClose(false);
+
             var loginWindow = new LoginWindow();
             loginWindow.ShowDialog();
         }
 
         private void OpenFile(object obj)
         {
+            // Method to give user acces to files on his computer
             var openFileDialog = new OpenFileDialog();
 
             if (openFileDialog.ShowDialog() == true)
             {
+                // Validation of selected text format
                 var extension = Path.GetExtension(openFileDialog.FileName);
 
                 if (extension != ".txt")
@@ -100,18 +103,23 @@ namespace WordsCount.ViewModels
                     MessageBox.Show("Wrong file format! You can download only .txt files");
                     return;
                 }
-
+                
+                // Read filename and text from file
                 FilePath = openFileDialog.FileName;
                 FileText = File.ReadAllText(FilePath);
+
+                // Perform text analyzing
                 HandeRequestText();
             }
         }
 
         private void HandeRequestText()
         {
+            // Analyze text
             var textAnalyzer = new TextAnalyzer(FileText);
             var textRequest = new TextRequest(FilePath, textAnalyzer);
 
+            // Fill results
             SymbolsAmount = textAnalyzer.CountSymbols();
             WordsAmount = textAnalyzer.CountWords();
             LinesAmount = textAnalyzer.CountLines();
@@ -123,6 +131,7 @@ namespace WordsCount.ViewModels
         private void OpenTextRequests(object obj)
         {
             OnRequestClose(false);
+
             var requestsHistoryWindow = new RequestsHistoryWindow();
             requestsHistoryWindow.ShowDialog();
         }
