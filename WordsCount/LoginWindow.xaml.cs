@@ -15,9 +15,12 @@ namespace WordsCount
         {
             WindowStyle = WindowStyle.None;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             InitializeComponent();
+
             _loginViewModel = new LoginViewModel(new User());
             _loginViewModel.RequestClose += Close;
+
             DataContext = _loginViewModel;        
         }
 

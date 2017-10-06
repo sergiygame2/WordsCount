@@ -1,9 +1,7 @@
-﻿using System.Runtime.Serialization;
-using WordsCount.Models;
+﻿using WordsCount.Models;
 
 namespace WordsCount.Services
 {
-    [DataContract]
     public class StationManager
     {
         public static User CurrentUser { get; set; }

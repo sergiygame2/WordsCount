@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using WordsCount.Helpers;
+using WordsCount.Services;
 
 namespace WordsCount.Models
 {
@@ -43,6 +44,6 @@ namespace WordsCount.Models
             TextRequests = new List<TextRequest>();
         }
 
-        public string FileName => "user.json";
+        public string FileName => StationManager.UserFilePath;
     }
 }
