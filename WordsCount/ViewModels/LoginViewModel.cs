@@ -77,6 +77,9 @@ namespace WordsCount.ViewModels
             }
 
             StationManager.CurrentUser = currentUser;
+            Logger.Log($"User {StationManager.CurrentUser?.UserName} logged in");
+            SerializeManager.Serialize(currentUser);
+
             OnRequestClose(false);
 
             var textRequestsWindow = new TextRequestsWindow();

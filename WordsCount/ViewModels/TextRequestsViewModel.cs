@@ -84,6 +84,10 @@ namespace WordsCount.ViewModels
         {
             OnRequestClose(false);
 
+            Logger.Log($"User {StationManager.CurrentUser?.UserName} logged out");
+            StationManager.CurrentUser = null;
+            SerializeManager.RemoveFile(StationManager.UserFilePath);
+
             var loginWindow = new LoginWindow();
             loginWindow.ShowDialog();
         }
@@ -124,14 +128,21 @@ namespace WordsCount.ViewModels
             WordsAmount = textAnalyzer.CountWords();
             LinesAmount = textAnalyzer.CountLines();
             
-            StationManager.CurrentUser.TextRequests.Add(textRequest);
+            Logger.Log($"User {StationManager.CurrentUser?.UserName} analyzed file {FilePath}");
+            StationManager.CurrentUser?.TextRequests.Add(textRequest);
+            
             OnRequestShowResults();
         }
             
         private void OpenTextRequests(object obj)
         {
             OnRequestClose(false);
+<<<<<<< HEAD
 
+=======
+            
+            Logger.Log($"User {StationManager.CurrentUser?.UserName} oppened requests history");
+>>>>>>> lab2
             var requestsHistoryWindow = new RequestsHistoryWindow();
             requestsHistoryWindow.ShowDialog();
         }

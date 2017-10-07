@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Net.Mail;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using JetBrains.Annotations;
@@ -9,7 +7,6 @@ using WordsCount.Commands;
 using WordsCount.Data;
 using WordsCount.Models;
 using WordsCount.Services;
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
 namespace WordsCount.ViewModels
@@ -131,6 +128,9 @@ namespace WordsCount.ViewModels
             // If user is valid, add him to database (static list)
             DbAdapter.Users.Add(currentUser);
             StationManager.CurrentUser = currentUser;
+
+            Logger.Log($"User {StationManager.CurrentUser?.UserName} signed-up");
+            SerializeManager.Serialize(currentUser);
 
             MessageBox.Show("You have successfully signed-up!");
             OnRequestClose(false);

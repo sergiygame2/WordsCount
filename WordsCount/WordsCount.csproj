@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -69,6 +70,9 @@
       <DependentUpon>RequestsHistoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\Validator.cs" />
+    <Compile Include="Services\Logger.cs" />
+    <Compile Include="Services\SerializeManager.cs" />
+    <Compile Include="Services\StaticResources.cs" />
     <Compile Include="TextRequestsWindow.xaml.cs">
       <DependentUpon>TextRequestsWindow.xaml</DependentUpon>
     </Compile>

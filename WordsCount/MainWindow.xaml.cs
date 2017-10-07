@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows;
+using WordsCount.Data;
+using WordsCount.Models;
 using WordsCount.Services;
-using WordsCount.ViewModels;
 
 namespace WordsCount
 {
@@ -13,9 +14,39 @@ namespace WordsCount
         public MainWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            var user = SerializeManager.Deserialize<User>(StationManager.UserFilePath);
 
-            var loginWindow = new LoginWindow();
-            loginWindow.ShowDialog();
+            // In case the previous function returned new User()
+            if (!String.IsNullOrEmpty(user?.UserName))
+            {
+                StationManager.CurrentUser = user;
+
+                try
+                {
+                    // If user already exists in static list of users, remove it
+                    if (DbAdapter.Users.Exists(u => u.UserName == user.UserName))
+                    {
+                        // Such user could be only one
+                        DbAdapter.Users.RemoveAll(u => u.UserName == user.UserName);
+                    }
+                    // Insert new or updated user
+                    DbAdapter.Users.Add(user);
+                }
+                catch (Exception e)
+                {
+                    Logger.Log("Error after initial user deserialization. Cuoldn't add or remove user", e);
+                }
+
+                Logger.Log($"User {StationManager.CurrentUser?.UserName} was autologged-in");
+
+                var textRequestsWindow = new TextRequestsWindow();
+                textRequestsWindow.ShowDialog();
+            }
+            else
+            {
+                var loginWindow = new LoginWindow();
+                loginWindow.ShowDialog();
+            }
 
             InitializeComponent();
             AppDomain.CurrentDomain.ProcessExit += OnExit;

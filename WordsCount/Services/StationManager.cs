@@ -6,5 +6,12 @@ namespace WordsCount.Services
     public static class StationManager
     {
         public static User CurrentUser { get; set; }
+
+        public static readonly string UserFilePath;
+
+        static StationManager()
+        {
+            UserFilePath = "user.json";
+        }
     }
 }
