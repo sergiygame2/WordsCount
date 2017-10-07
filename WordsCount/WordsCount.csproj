@@ -69,7 +69,9 @@
     <Compile Include="RequestsHistoryWindow.xaml.cs">
       <DependentUpon>RequestsHistoryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\SerializeManager.cs" />
+    <Compile Include="Services\StaticResources.cs" />
     <Compile Include="TextRequestsWindow.xaml.cs">
       <DependentUpon>TextRequestsWindow.xaml</DependentUpon>
     </Compile>

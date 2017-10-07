@@ -6,11 +6,14 @@ namespace WordsCount.Services
 {
     static class Logger
     {
-        private static readonly string Filepath = Path.Combine(StaticResources.ClientLogDirPath,
-            "App" + DateTime.Now.ToString("YYYY_MM_DD") + ".txt");
+        private static readonly string Filepath;
+        private static Mutex mutexObj;
 
-        private static Mutex mutexObj = new Mutex(true, Filepath);
-
+        static Logger()
+        {
+            Filepath = Path.Combine(StaticResources.ClientLogDirPath, DateTime.Now.ToString("YYYY_MM_DD") + ".txt");
+            mutexObj = new Mutex(true, Filepath);
+        }
 
         private static void CheckingCreateFile()
         {
@@ -32,13 +35,9 @@ namespace WordsCount.Services
             try
             {
                 CheckingCreateFile();
-
                 file = new FileStream(Filepath, FileMode.Append);
                 writer = new StreamWriter(file);
                 writer.WriteLine(DateTime.Now.ToString("HH:mm:ss.ms") + " " + message);
-            }
-            catch
-            {
             }
             finally
             {
@@ -48,13 +47,10 @@ namespace WordsCount.Services
                 file = null;
             }
             mutexObj.ReleaseMutex();
-
         }
 
         internal static void Log(string message, Exception ex)
         {
-
-
             Log(message);
             var realException = ex;
             while (realException != null)
@@ -65,6 +61,5 @@ namespace WordsCount.Services
             }
 
         }
-
     }
 }

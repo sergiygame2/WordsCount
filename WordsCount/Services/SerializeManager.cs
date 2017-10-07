@@ -11,15 +11,12 @@ namespace WordsCount.Services
 
     internal static class SerializeManager
     {
-        private static readonly string AppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        private static readonly string DirPath = Path.Combine(AppData, "WordsCount");
-
         private static string CreateAndGetPath(string filename)
         {
-            if (!Directory.Exists(DirPath))
-                Directory.CreateDirectory(DirPath);
+            if (!Directory.Exists(StaticResources.ClientDirPath))
+                Directory.CreateDirectory(StaticResources.ClientDirPath);
 
-            return Path.Combine(DirPath, filename);
+            return Path.Combine(StaticResources.ClientDirPath, filename);
         }
 
         public static void Serialize<TObject>(TObject obj) where TObject : ISerializable
