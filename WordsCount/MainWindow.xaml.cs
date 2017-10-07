@@ -25,14 +25,23 @@ namespace WordsCount
             {
                 StationManager.CurrentUser = user;
 
-                // If user already exists in static list of users, remove it
-                if (DbAdapter.Users.Exists(u => u.UserName == user.UserName))
+                try
                 {
-                    // Such user could be only one
-                    DbAdapter.Users.RemoveAll(u => u.UserName == user.UserName);
+                    // If user already exists in static list of users, remove it
+                    if (DbAdapter.Users.Exists(u => u.UserName == user.UserName))
+                    {
+                        // Such user could be only one
+                        DbAdapter.Users.RemoveAll(u => u.UserName == user.UserName);
+                    }
+                    // Insert new or updated user
+                    DbAdapter.Users.Add(user);
                 }
-                // Insert new or updated user
-                DbAdapter.Users.Add(user);
+                catch (Exception e)
+                {
+                    Logger.Log("Error after initial user deserialization. Cuoldn't add or remove user", e);
+                }
+
+                Logger.Log($"User {StationManager.CurrentUser?.UserName} was autologged-in");
 
                 var textRequestsWindow = new TextRequestsWindow();
                 textRequestsWindow.ShowDialog();

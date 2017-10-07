@@ -125,6 +125,7 @@ namespace WordsCount.ViewModels
             var currentUser = new User(Username, FirstName, LastName, Email, Password);
             DbAdapter.Users.Add(currentUser);
             StationManager.CurrentUser = currentUser;
+            Logger.Log($"User {StationManager.CurrentUser?.UserName} signed-up");
             SerializeManager.Serialize(currentUser);
 
             MessageBox.Show("You have successfully signed-up!");

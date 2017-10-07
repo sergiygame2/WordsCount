@@ -4,15 +4,16 @@ using System.Threading;
 
 namespace WordsCount.Services
 {
-    static class Logger
+    internal static class Logger
     {
         private static readonly string Filepath;
-        private static Mutex mutexObj;
+        private static readonly Mutex MutexObj;
 
         static Logger()
         {
-            Filepath = Path.Combine(StaticResources.ClientLogDirPath, DateTime.Now.ToString("YYYY_MM_DD") + ".txt");
-            mutexObj = new Mutex(true, Filepath);
+            Filepath = Path.Combine(StaticResources.ClientLogDirPath, DateTime.Now.ToString("yyyy_MM_dd") + ".txt");
+            CheckingCreateFile();
+            //MutexObj = new Mutex(true, Filepath);
         }
 
         private static void CheckingCreateFile()
@@ -29,12 +30,11 @@ namespace WordsCount.Services
 
         internal static void Log(string message)
         {
-            mutexObj.WaitOne();
+            //MutexObj.WaitOne();
             StreamWriter writer = null;
             FileStream file = null;
             try
             {
-                CheckingCreateFile();
                 file = new FileStream(Filepath, FileMode.Append);
                 writer = new StreamWriter(file);
                 writer.WriteLine(DateTime.Now.ToString("HH:mm:ss.ms") + " " + message);
@@ -46,7 +46,7 @@ namespace WordsCount.Services
                 writer = null;
                 file = null;
             }
-            mutexObj.ReleaseMutex();
+            //MutexObj.ReleaseMutex();
         }
 
         internal static void Log(string message, Exception ex)

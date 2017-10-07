@@ -38,6 +38,7 @@ namespace WordsCount
                 // Serialize user before exit, to update it's fields at next start of program
                 SerializeManager.RemoveFile(StationManager.UserFilePath);
                 SerializeManager.Serialize(StationManager.CurrentUser);
+                Logger.Log($"User {StationManager.CurrentUser.UserName} closed program wuthout log out");
 
                 MessageBox.Show("Salut!");
                 Environment.Exit(0);

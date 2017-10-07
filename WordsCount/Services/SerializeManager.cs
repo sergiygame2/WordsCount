@@ -13,8 +13,18 @@ namespace WordsCount.Services
     {
         private static string CreateAndGetPath(string filename)
         {
-            if (!Directory.Exists(StaticResources.ClientDirPath))
-                Directory.CreateDirectory(StaticResources.ClientDirPath);
+            try
+            {
+                if (!Directory.Exists(StaticResources.ClientDirPath))
+                {
+                    Directory.CreateDirectory(StaticResources.ClientDirPath);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log($"Error during create {StaticResources.ClientDirPath} directory", e);
+            }
+            
 
             return Path.Combine(StaticResources.ClientDirPath, filename);
         }
@@ -33,8 +43,7 @@ namespace WordsCount.Services
             }
             catch (Exception e)
             {
-                // TODO Add logging
-                throw;
+                Logger.Log($"Error during {obj} serialization", e);
             }
         }
 
@@ -46,7 +55,9 @@ namespace WordsCount.Services
                 var filePath = CreateAndGetPath(fileName);
 
                 if (!File.Exists(filePath))
-                    throw new FileNotFoundException();
+                {
+                    return new TObject();
+                }
 
                 using (var fs = new FileStream(filePath, FileMode.OpenOrCreate))
                 {
@@ -55,7 +66,7 @@ namespace WordsCount.Services
             }
             catch (Exception e)
             {
-                // TODO add logging
+                Logger.Log($"Error during deserialization. File - {fileName}", e);
                 return new TObject();
             }
         }
@@ -65,7 +76,14 @@ namespace WordsCount.Services
             string filePath = CreateAndGetPath(fileName);
             if (File.Exists(filePath))
             {
-                File.Delete(filePath);
+                try
+                {
+                    File.Delete(filePath);
+                }
+                catch (Exception e)
+                {
+                    Logger.Log($"Error during {fileName} file remove operation", e);
+                }
             }
         }
     }
