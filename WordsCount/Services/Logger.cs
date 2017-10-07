@@ -13,7 +13,7 @@ namespace WordsCount.Services
         {
             Filepath = Path.Combine(StaticResources.ClientLogDirPath, DateTime.Now.ToString("yyyy_MM_dd") + ".txt");
             CheckingCreateFile();
-            //MutexObj = new Mutex(true, Filepath);
+            MutexObj = new Mutex(true, Filepath.Replace(Path.DirectorySeparatorChar, '_'));
         }
 
         private static void CheckingCreateFile()
@@ -30,7 +30,7 @@ namespace WordsCount.Services
 
         internal static void Log(string message)
         {
-            //MutexObj.WaitOne();
+            MutexObj.WaitOne();
             StreamWriter writer = null;
             FileStream file = null;
             try
@@ -46,20 +46,20 @@ namespace WordsCount.Services
                 writer = null;
                 file = null;
             }
-            //MutexObj.ReleaseMutex();
+            MutexObj.ReleaseMutex();
         }
 
         internal static void Log(string message, Exception ex)
         {
             Log(message);
             var realException = ex;
+
             while (realException != null)
             {
                 Log(realException.Message);
                 Log(realException.StackTrace);
                 realException = realException.InnerException;
             }
-
         }
     }
 }
