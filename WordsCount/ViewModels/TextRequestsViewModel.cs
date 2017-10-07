@@ -137,12 +137,9 @@ namespace WordsCount.ViewModels
         private void OpenTextRequests(object obj)
         {
             OnRequestClose(false);
-<<<<<<< HEAD
-
-=======
             
             Logger.Log($"User {StationManager.CurrentUser?.UserName} oppened requests history");
->>>>>>> lab2
+
             var requestsHistoryWindow = new RequestsHistoryWindow();
             requestsHistoryWindow.ShowDialog();
         }
