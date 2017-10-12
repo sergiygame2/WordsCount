@@ -9,6 +9,7 @@ namespace WordsCount.Services
         private static readonly string Filepath;
         private static readonly Mutex MutexObj;
 
+        // initializing log path & check if it is valid (directory and file is created)
         static Logger()
         {
             Filepath = Path.Combine(StaticResources.ClientLogDirPath, DateTime.Now.ToString("yyyy_MM_dd") + ".txt");
@@ -30,11 +31,13 @@ namespace WordsCount.Services
 
         internal static void Log(string message)
         {
+            // use mutex to lock file (inner processes mutex)
             MutexObj.WaitOne();
             StreamWriter writer = null;
             FileStream file = null;
             try
             {
+                // initialize writer and get access to file
                 file = new FileStream(Filepath, FileMode.Append);
                 writer = new StreamWriter(file);
                 writer.WriteLine(DateTime.Now.ToString("HH:mm:ss.ms") + " " + message);
@@ -46,9 +49,11 @@ namespace WordsCount.Services
                 writer = null;
                 file = null;
             }
+            // relsease mutex to unlock file
             MutexObj.ReleaseMutex();
         }
 
+        // method for writing exceptions to log file
         internal static void Log(string message, Exception ex)
         {
             Log(message);

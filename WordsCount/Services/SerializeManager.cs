@@ -11,6 +11,7 @@ namespace WordsCount.Services
 
     internal static class SerializeManager
     {
+        // method for creating path to directory where file will be stored
         private static string CreateAndGetPath(string filename)
         {
             try
@@ -33,6 +34,7 @@ namespace WordsCount.Services
         {
             try
             {
+                // using json formatter to create .json file with serialized object
                 var jsonFormatter = new DataContractJsonSerializer(typeof(TObject));
                 string fileName = CreateAndGetPath(obj.FileName);
                 
@@ -43,6 +45,7 @@ namespace WordsCount.Services
             }
             catch (Exception e)
             {
+                // handling exception (writing to log file)
                 Logger.Log($"Error during {obj} serialization", e);
             }
         }
@@ -66,11 +69,12 @@ namespace WordsCount.Services
             }
             catch (Exception e)
             {
+                // handling exception (writing to log file)
                 Logger.Log($"Error during deserialization. File - {fileName}", e);
                 return new TObject();
             }
         }
-
+        
         public static void RemoveFile(string fileName)
         {
             string filePath = CreateAndGetPath(fileName);
@@ -82,6 +86,7 @@ namespace WordsCount.Services
                 }
                 catch (Exception e)
                 {
+                    // handling exception (writing to log file)
                     Logger.Log($"Error during {fileName} file remove operation", e);
                 }
             }

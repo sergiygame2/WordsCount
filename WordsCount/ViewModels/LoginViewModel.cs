@@ -77,7 +77,10 @@ namespace WordsCount.ViewModels
             }
 
             StationManager.CurrentUser = currentUser;
+
+            // writing logs (what current user have just done)
             Logger.Log($"User {StationManager.CurrentUser?.UserName} logged in");
+            // serializing user on login
             SerializeManager.Serialize(currentUser);
 
             OnRequestClose(false);

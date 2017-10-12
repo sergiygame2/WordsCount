@@ -14,6 +14,9 @@ namespace WordsCount
         public MainWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            
+            // deserializing user when app starts
+            // if such users exists do autologin else redirect to login
             var user = SerializeManager.Deserialize<User>(StationManager.UserFilePath);
 
             // In case the previous function returned new User()
@@ -34,9 +37,11 @@ namespace WordsCount
                 }
                 catch (Exception e)
                 {
+                    // handling exception
                     Logger.Log("Error after initial user deserialization. Cuoldn't add or remove user", e);
                 }
 
+                // writing logs (what current user have just done)
                 Logger.Log($"User {StationManager.CurrentUser?.UserName} was autologged-in");
 
                 var textRequestsWindow = new TextRequestsWindow();

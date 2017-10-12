@@ -129,6 +129,7 @@ namespace WordsCount.ViewModels
             DbAdapter.Users.Add(currentUser);
             StationManager.CurrentUser = currentUser;
 
+            // writing logs (what current user have just done)
             Logger.Log($"User {StationManager.CurrentUser?.UserName} signed-up");
             SerializeManager.Serialize(currentUser);
 
