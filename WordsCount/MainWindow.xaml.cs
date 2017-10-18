@@ -52,7 +52,7 @@ namespace WordsCount
                 var loginWindow = new LoginWindow();
                 loginWindow.ShowDialog();
             }
-
+            
             InitializeComponent();
             AppDomain.CurrentDomain.ProcessExit += OnExit;
         }

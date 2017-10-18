@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using JetBrains.Annotations;
 using WordsCount.Commands;
@@ -65,32 +67,56 @@ namespace WordsCount.ViewModels
             }
         }
 
-        private void SignIn(object obj)
+        private async void SignIn(object obj)
         {
-            // After some chackings, set the current user, and open cabinet window
-            var currentUser = DbAdapter.Users.FirstOrDefault(user => user.UserName == Username &&
-                                                                     user.HashPassword == DataHelper.Hash(Password));
-            if (currentUser == null)
+            OnRequestLoader(true);
+            var result = await Task.Run(() =>
             {
-                MessageBox.Show("Wrong Username or Password");
-                return;
-            }
+                Thread.Sleep(1000);
 
-            StationManager.CurrentUser = currentUser;
+                // After some chackings, set the current user, and open cabinet window
+                var currentUser = DbAdapter.Users.FirstOrDefault(user => user.UserName == Username &&
+                                                                         user.HashPassword == DataHelper.Hash(Password));
+                if (currentUser == null)
+                {
+                    MessageBox.Show("Wrong Username or Password");
+                    return false;
+                }
+
+                // setting curren user & serializing user on login
+                StationManager.CurrentUser = currentUser;
+                SerializeManager.Serialize(currentUser);
+
+                return true;
+            });
+            OnRequestLoader(false);
+
+            if (!result) return;
+            OnRequestClose(false);
 
             // writing logs (what current user have just done)
             Logger.Log($"User {StationManager.CurrentUser?.UserName} logged in");
-            // serializing user on login
-            SerializeManager.Serialize(currentUser);
-
-            OnRequestClose(false);
 
             var textRequestsWindow = new TextRequestsWindow();
             textRequestsWindow.ShowDialog();
         }
-
+        
         internal event CloseHandler RequestClose;
         public delegate void CloseHandler(bool isQuitApp);
+
+        protected virtual void OnRequestClose(bool isquitapp)
+        {
+            RequestClose?.Invoke(isquitapp);
+        }
+        
+
+        internal event LoaderHandler RequestLoader;
+        public delegate void LoaderHandler(bool isShow);
+
+        protected virtual void OnRequestLoader(bool isShow)
+        {
+            RequestLoader?.Invoke(isShow);
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -99,11 +125,6 @@ namespace WordsCount.ViewModels
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected virtual void OnRequestClose(bool isquitapp)
-        {
-            RequestClose?.Invoke(isquitapp);
         }
     }
 }

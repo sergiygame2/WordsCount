@@ -8,6 +8,8 @@ using WordsCount.Data;
 using WordsCount.Models;
 using WordsCount.Services;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace WordsCount.ViewModels
 {
@@ -101,39 +103,51 @@ namespace WordsCount.ViewModels
             loginWindow.ShowDialog();
         }
 
-        private void SignUp(object obj)
+        private async void SignUp(object obj)
         {
-            // using list of function & error message if function returned false
-            var validationFields = new List<KeyValuePair<bool, string>>
+            OnRequestLoader(true);
+            var result = await Task.Run(() =>
             {
-                new KeyValuePair<bool, string>(Validator.IsExistingUsername(Username), "User with such username already exists!"),
-                new KeyValuePair<bool, string>(Validator.IsEmail(Email), "Email is not valid!"),
-                new KeyValuePair<bool, string>(Validator.IsString(FirstName), "Firstname must contain only letters!"),
-                new KeyValuePair<bool, string>(Validator.IsString(LastName), "Lastname must contain only letters!"),
-                new KeyValuePair<bool, string>(Validator.IsPasswordMatch(Password, RepeatedPassword), "Passwords do not match!"),
-            };
-
-            // iterating validation funcs and displaying error message
-            foreach (var field in validationFields)
-            {
-                if (field.Key == false)
+                Thread.Sleep(1000);
+                
+                // using list of function & error message if function returned false
+                var validationFields = new List<KeyValuePair<bool, string>>
                 {
-                    MessageBox.Show(field.Value);
-                    return;
+                    new KeyValuePair<bool, string>(Validator.IsExistingUsername(Username),
+                        "User with such username already exists!"),
+                    new KeyValuePair<bool, string>(Validator.IsEmail(Email), "Email is not valid!"),
+                    new KeyValuePair<bool, string>(Validator.IsString(FirstName),
+                        "Firstname must contain only letters!"),
+                    new KeyValuePair<bool, string>(Validator.IsString(LastName), "Lastname must contain only letters!"),
+                    new KeyValuePair<bool, string>(Validator.IsPasswordMatch(Password, RepeatedPassword),
+                        "Passwords do not match!"),
+                };
+
+                // iterating validation funcs and displaying error message
+                foreach (var field in validationFields)
+                {
+                    if (field.Key == false)
+                    {
+                        MessageBox.Show(field.Value);
+                        return false;
+                    }
                 }
-            }
 
-            var currentUser = new User(Username, FirstName, LastName, Email, Password);
+                var currentUser = new User(Username, FirstName, LastName, Email, Password);
 
-            // If user is valid, add him to database (static list)
-            DbAdapter.Users.Add(currentUser);
-            StationManager.CurrentUser = currentUser;
+                // If user is valid, add him to database (static list)
+                DbAdapter.Users.Add(currentUser);
+                StationManager.CurrentUser = currentUser;
+                SerializeManager.Serialize(currentUser);
+                
+                return true;
+            });
+            OnRequestLoader(false);
+
+            if (!result) return;
 
             // writing logs (what current user have just done)
             Logger.Log($"User {StationManager.CurrentUser?.UserName} signed-up");
-            SerializeManager.Serialize(currentUser);
-
-            MessageBox.Show("You have successfully signed-up!");
             OnRequestClose(false);
 
             var textRequestsWindow = new TextRequestsWindow();
@@ -143,17 +157,27 @@ namespace WordsCount.ViewModels
         internal event CloseHandler RequestClose;
         public delegate void CloseHandler(bool isQuitApp);
 
+        protected virtual void OnRequestClose(bool isquitapp)
+        {
+            RequestClose?.Invoke(isquitapp);
+        }
+
+
+        internal event LoaderHandler RequestLoader;
+        public delegate void LoaderHandler(bool isShow);
+
+        protected virtual void OnRequestLoader(bool isShow)
+        {
+            RequestLoader?.Invoke(isShow);
+        }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected virtual void OnRequestClose(bool isquitapp)
-        {
-            RequestClose?.Invoke(isquitapp);
         }
     }
 }

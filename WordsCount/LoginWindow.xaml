@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WordsCount"
         mc:Ignorable="d"
         Title="Login" Height="400" Width="500" MinHeight="400" MaxHeight="400" MinWidth="500" MaxWidth="500">
-    <Grid Margin="0,0,0,1" >
+    <Grid Margin="0,0,0,1" Name="LoginGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="95"/>
@@ -16,22 +16,23 @@
             <RowDefinition MinHeight="50"  MaxHeight="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="1.8*"/>
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
             <Label Content="WordsCount" FontStyle="Normal" FontSize="30" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="69"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="3">
             <Label Content="Username" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="90"/>
             <TextBox Margin="10,0,10,10" FontSize="15" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="33" TextWrapping="Wrap" Name="Username" VerticalAlignment="Top" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
             <Label Content="Password" Margin="5,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="90"/>
             <PasswordBox Margin="10,0,10,10" FontSize="15" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="33" VerticalAlignment="Top" x:Name="Password" PasswordChanged="Password_OnPasswordChanged"/>
         </StackPanel>
-        <Button Grid.Row="3" Grid.Column="0" Content="Sign up" HorizontalAlignment="Center" VerticalAlignment="Center" Width="95" Height="30" Command="{Binding SignUpCommand}" />
-        <Button Grid.Row="3" Grid.Column="1" Content="Log in" HorizontalAlignment="Center" VerticalAlignment="Center" Width="95" Height="30" Command="{Binding SignInCommand}"/>
-        <Button Grid.Row="5" Grid.Column="1" Content="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Width="95" Height="30" Command="{Binding CloseCommand}"/>
+        <Button Grid.Row="3" Grid.Column="1" Content="Sign up" HorizontalAlignment="Center" VerticalAlignment="Center" Width="95" Height="30" Command="{Binding SignUpCommand}" Margin="128.667,10.333,10.333,9.667" />
+        <Button Grid.Row="3" Grid.Column="1" Content="Log in" HorizontalAlignment="Center" VerticalAlignment="Center" Width="95" Height="30" Command="{Binding SignInCommand}" Margin="9.667,10.333,129.333,9.667"/>
+        <Button Grid.Row="5" Grid.Column="1" Content="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Width="95" Height="30" Command="{Binding CloseCommand}" Margin="128.667,10.333,10.333,9.667"/>
     </Grid>
 </Window>

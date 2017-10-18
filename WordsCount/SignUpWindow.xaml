@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WordsCount"
         mc:Ignorable="d"
         Title="SignUp" Height="600" MinHeight="600" MaxHeight="600" Width="500" MinWidth="500" MaxWidth="500">
-    <Grid RenderTransformOrigin="0.509,0.579" Margin="0,0,0,2" >
+    <Grid Name="SignUpGrid" RenderTransformOrigin="0.509,0.579" Margin="0,0,0,2" >
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="80"/>
@@ -19,35 +19,36 @@
             <RowDefinition MinHeight="20"  MaxHeight="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
             <Label Content="Username" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="112"/>
             <TextBox Margin="10,0,10,10" FontSize="13" VerticalContentAlignment="Center"  HorizontalAlignment="Stretch" Height="32" TextWrapping="Wrap" Name="Username" VerticalAlignment="Top" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="3">
             <Label Content="Email" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="112"/>
             <TextBox Margin="10,0,10,10" FontSize="13" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="32" TextWrapping="Wrap" Name="Email" VerticalAlignment="Top" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
             <Label Content="First name" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="112"/>
             <TextBox Margin="10,0,10,10" FontSize="13" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="32" TextWrapping="Wrap" Name="FirstName" VerticalAlignment="Top" Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="3">
             <Label Content="Last name" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="112"/>
             <TextBox Margin="10,0,10,10" FontSize="13" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="32" TextWrapping="Wrap" Name="LastName" VerticalAlignment="Top" Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="3">
             <Label Content="Password" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="112"/>
             <PasswordBox Margin="10,0,10,10" FontSize="13" VerticalContentAlignment="Center"  HorizontalAlignment="Stretch" Height="32" VerticalAlignment="Top" Name="Password" PasswordChanged="Password_OnPasswordChanged"/>
         </StackPanel>
-        <StackPanel Grid.Row="5" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="3">
             <Label Content="Confirm password" Margin="5,5,0,5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="112"/>
             <PasswordBox Margin="10,0,10,10" FontSize="13" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="32" VerticalAlignment="Top" Name="RepeatedPassword" PasswordChanged="Password_OnRepeatedPasswordChanged"/>
         </StackPanel>
-        <Button Grid.Row="6" Grid.Column="0" Content="Sign up" HorizontalAlignment="Center" VerticalAlignment="Center" Width="95" Height="25" Command="{Binding SignUpCommand}" />
-        <Button Grid.Row="6" Grid.Column="1" Content="Log in" HorizontalAlignment="Center" VerticalAlignment="Center" Width="95" Height="25" Command="{Binding SignInCommand}"/>
-        <Button Grid.Row="8" Grid.Column="1" Content="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Width="95" Height="25" Command="{Binding CloseCommand}"/>
+        <Button Grid.Row="6" Grid.Column="1" Content="Sign up" HorizontalAlignment="Left" VerticalAlignment="Center" Width="95" Height="25" Command="{Binding SignUpCommand}" />
+        <Button Grid.Row="6" Grid.Column="1" Content="Log in" HorizontalAlignment="Right" VerticalAlignment="Center" Width="95" Height="25" Command="{Binding SignInCommand}"/>
+        <Button Grid.Row="8" Grid.Column="1" Content="Close" HorizontalAlignment="Right" VerticalAlignment="Center" Width="95" Height="25" Command="{Binding CloseCommand}"/>
     </Grid>
 </Window>
