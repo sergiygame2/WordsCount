@@ -15,6 +15,13 @@ namespace WordsCount
     {
         private ImageAwesome _loader;
 
+        private readonly FontAwesomeIcon[] _batteryIcons =
+        {
+            FontAwesomeIcon.BatteryEmpty, FontAwesomeIcon.Battery1,
+            FontAwesomeIcon.Battery2, FontAwesomeIcon.Battery3,
+            FontAwesomeIcon.BatteryFull
+        };
+
         public TextRequestsWindow()
         {
             WindowStyle = WindowStyle.None;
@@ -45,22 +52,8 @@ namespace WordsCount
                     _loader.Height = 75;
                 }
 
-                switch (step)
-                {
-                    case 1:
-                        _loader.Icon = FontAwesomeIcon.Battery1;
-                        break;
-                    case 2:
-                        _loader.Icon = FontAwesomeIcon.Battery2;
-                        break;
-                    case 3:
-                        _loader.Icon = FontAwesomeIcon.Battery3;
-                        break;
-                    default:
-                        _loader.Icon = FontAwesomeIcon.BatteryEmpty;
-                        break;
-                }
-                
+                _loader.Icon = _batteryIcons[step];
+                 
                 IsEnabled = false;
             }
             else
