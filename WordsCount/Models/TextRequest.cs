@@ -39,17 +39,7 @@ namespace WordsCount.Models
             LinesAmount = linesAmount;
             CreatedAt = DateTime.Now;
         }
-
-        public TextRequest(string path, TextAnalyzer textAnalyzer)
-        {
-            Id = ++_amount;
-            Path = path;
-            SymbolsAmount = textAnalyzer.CountSymbols();
-            WordsAmount = textAnalyzer.CountWords();
-            LinesAmount = textAnalyzer.CountLines();
-            CreatedAt = DateTime.Now;
-        }
-
+        
         public string FileName => "textRequests.json";
     }
 }

@@ -119,20 +119,19 @@ namespace WordsCount.ViewModels
             }
         }
 
-        private void HandeRequestText()
+        private async void HandeRequestText()
         {
             // Analyze text
             var textAnalyzer = new TextAnalyzer(FileText);
-            var textRequest = new TextRequest(FilePath, textAnalyzer);
-
+            
             // Fill results
-            SymbolsAmount = textAnalyzer.CountSymbols();
-            WordsAmount = textAnalyzer.CountWords();
-            LinesAmount = textAnalyzer.CountLines();
+            SymbolsAmount = await textAnalyzer.CountSymbolsAsync();
+            WordsAmount = await textAnalyzer.CountWordsAsync();
+            LinesAmount = await textAnalyzer.CountLinesAsync();
 
             // writing logs (what current user have just done)
             Logger.Log($"User {StationManager.CurrentUser?.UserName} analyzed file {FilePath}");
-            StationManager.CurrentUser?.TextRequests.Add(textRequest);
+            StationManager.CurrentUser?.TextRequests.Add(new TextRequest(FilePath, SymbolsAmount, WordsAmount, LinesAmount));
             
             OnRequestShowResults();
         }

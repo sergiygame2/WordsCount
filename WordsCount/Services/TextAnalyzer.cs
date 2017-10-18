@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WordsCount.Services
 {
@@ -24,38 +25,53 @@ namespace WordsCount.Services
 
         public TextAnalyzer(string text) => _text = text.Trim();
 
-        // if already counted just return a value, else count
-        public int CountSymbols()
+        // if already counted just return a value, else count in a thread
+        public async Task<int> CountSymbolsAsync()
         {
-            if (_symbolsCount == 0)
+            if (_symbolsCount != 0)
+            {
+                return _symbolsCount;
+            }
+
+            return await Task.Run(() =>
             {
                 // count all chars except some special
                 _symbolsCount = _text.Count(c => !SymbolsDelimeters.Contains(c));
-            }
-
-            return _symbolsCount;
+                
+                return _symbolsCount;
+            });
         }
 
-        public int CountWords()
+        public async Task<int> CountWordsAsync()
         {
-            if (_wordsCount == 0)
+            if (_wordsCount != 0)
+            {
+                return _wordsCount;
+            }
+
+            return await Task.Run(() =>
             {
                 // split text by special characters to retrieve array of words, then count it's amount
                 _wordsCount = _text.Split(WordsDelimeters, StringSplitOptions.RemoveEmptyEntries).Length;
-            }
 
-            return _wordsCount;
+                return _wordsCount;
+            });
         }
 
-        public int CountLines()
+        public async Task<int> CountLinesAsync()
         {
-            if (_linesCount == 0)
+            if (_linesCount != 0)
+            {
+                return _linesCount;
+            }
+
+            return await Task.Run(() =>
             {
                 // split text by special line characters
                 _linesCount = _text.Split(LinesDelimeters).Length;
-            }
 
-            return _linesCount;
+                return _linesCount;
+            });
         }
     }
 }
