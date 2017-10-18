@@ -123,11 +123,19 @@ namespace WordsCount.ViewModels
         {
             // Analyze text
             var textAnalyzer = new TextAnalyzer(FileText);
-            
-            // Fill results
+
+            // Count & fill results & update loader icon (progress bar)
+            OnRequestShowResults(false);
+            OnRequestProgressBar(true, 1);
+
             SymbolsAmount = await textAnalyzer.CountSymbolsAsync();
+            OnRequestProgressBar(true, 2);
+
             WordsAmount = await textAnalyzer.CountWordsAsync();
+            OnRequestProgressBar(true, 3);
+
             LinesAmount = await textAnalyzer.CountLinesAsync();
+            OnRequestProgressBar(false);
 
             // writing logs (what current user have just done)
             Logger.Log($"User {StationManager.CurrentUser?.UserName} analyzed file {FilePath}");
@@ -147,12 +155,20 @@ namespace WordsCount.ViewModels
             requestsHistoryWindow.ShowDialog();
         }
 
-        internal event FillResultsHandler RequestShowResults;
-        public delegate void FillResultsHandler();
+        internal event ProgressHandler RequestProgressBar;
+        public delegate void ProgressHandler(bool isShow, int step = 0);
 
-        protected virtual void OnRequestShowResults()
+        protected virtual void OnRequestProgressBar(bool isShow, int step = 0)
         {
-            RequestShowResults?.Invoke();
+            RequestProgressBar?.Invoke(isShow, step);
+        }
+
+        internal event FillResultsHandler RequestShowResults;
+        public delegate void FillResultsHandler(bool visible);
+
+        protected virtual void OnRequestShowResults(bool visible = true)
+        {
+            RequestShowResults?.Invoke(visible);
         }
 
         internal event FillTextHandler RequestFillText;
