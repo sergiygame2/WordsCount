@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 using WordsCount.Data;
 using WordsCount.Models;
 using WordsCount.Services;
@@ -12,9 +11,7 @@ namespace WordsCount
     public partial class MainWindow
     {
         public MainWindow()
-        {
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            
+        {   
             // deserializing user when app starts
             // if such users exists do autologin else redirect to login
             var user = SerializeManager.Deserialize<User>(StationManager.UserFilePath);
@@ -52,15 +49,6 @@ namespace WordsCount
                 var loginWindow = new LoginWindow();
                 loginWindow.ShowDialog();
             }
-            
-            InitializeComponent();
-            AppDomain.CurrentDomain.ProcessExit += OnExit;
-        }
-
-        private static void OnExit(object obj, EventArgs a)
-        {
-            MessageBox.Show("Salut!");
-            Environment.Exit(0);
         }
     }
 }
