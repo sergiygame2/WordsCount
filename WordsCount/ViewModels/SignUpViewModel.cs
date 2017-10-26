@@ -106,6 +106,8 @@ namespace WordsCount.ViewModels
         private async void SignUp(object obj)
         {
             OnRequestLoader(true);
+            // sign up user in a separate thread
+            // show loader (spinner) while executing validation & db commands
             var result = await Task.Run(() =>
             {
                 Thread.Sleep(1000);

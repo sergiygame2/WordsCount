@@ -125,6 +125,7 @@ namespace WordsCount.ViewModels
             var textAnalyzer = new TextAnalyzer(FileText);
 
             // Count & fill results & update loader icon (progress bar)
+            // each value is calculated in a separate thread
             OnRequestShowResults(false);
             OnRequestProgressBar(true, 1);
 

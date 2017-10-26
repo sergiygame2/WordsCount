@@ -69,6 +69,8 @@ namespace WordsCount.ViewModels
 
         private async void SignIn(object obj)
         {
+            // sign in user in a separate thread
+            // show loader (spinner) while executing validation & db commands
             OnRequestLoader(true);
             var result = await Task.Run(() =>
             {

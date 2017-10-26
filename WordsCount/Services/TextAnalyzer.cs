@@ -45,6 +45,7 @@ namespace WordsCount.Services
             });
         }
 
+        //executing method in a separate thread
         public async Task<int> CountWordsAsync()
         {
             if (_wordsCount != 0)
@@ -63,6 +64,7 @@ namespace WordsCount.Services
             });
         }
 
+        //executing method in a separate thread
         public async Task<int> CountLinesAsync()
         {
             if (_linesCount != 0)
