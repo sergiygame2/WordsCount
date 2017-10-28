@@ -46,18 +46,21 @@ namespace WordsCount
             {
                 if (_loader == null)
                 {
+                    // Initializing ImageAwesome instance only once
                     _loader = new ImageAwesome();
                     TextAnalyzerGrid.Children.Add(_loader);
                     _loader.Width = 400;
                     _loader.Height = 75;
                 }
 
+                // Change icon state
                 _loader.Icon = _batteryIcons[step];
                  
                 IsEnabled = false;
             }
             else
             {
+                // Close progress bar
                 TextAnalyzerGrid.Children.Remove(_loader);
                 _loader = null;
                 IsEnabled = true;
