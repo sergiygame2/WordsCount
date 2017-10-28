@@ -1,6 +1,7 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Runtime.Serialization;
-using WordsCount.Services;
 
 namespace WordsCount.Models
 {
@@ -8,7 +9,7 @@ namespace WordsCount.Models
     public class TextRequest : Services.ISerializable
     {
         [DataMember]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [DataMember]
         public string Path { get; set; }
         [DataMember]
@@ -20,26 +21,30 @@ namespace WordsCount.Models
         [DataMember]
         public DateTime CreatedAt { get; set; }
 
-        // properties for DB relation
-        // public int UserId { get; set; } 
-        // public User User { get; set; }
+        public Guid UserId { get; set; } 
+        public User User { get; set; }
 
-        private static int _amount;
-
-        static TextRequest() => _amount = 0;
-
-        public TextRequest() { }
-
-        public TextRequest(string path, int symbolsAmount, int wordsAmount, int linesAmount)
-        {
-            Id = ++_amount;
-            Path = path;
-            SymbolsAmount = symbolsAmount;
-            WordsAmount = wordsAmount;
-            LinesAmount = linesAmount;
-            CreatedAt = DateTime.Now;
-        }
-        
         public string FileName => "textRequests.json";
+    }
+
+    public class TextRequestMap : EntityTypeConfiguration<TextRequest>
+    {
+        public TextRequestMap()
+        {
+            HasKey(tr => tr.Id);
+
+            Property(tr => tr.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(tr => tr.Path).IsRequired();
+            Property(tr => tr.SymbolsAmount).IsRequired();
+            Property(tr => tr.WordsAmount).IsRequired();
+            Property(tr => tr.LinesAmount).IsRequired();
+            Property(tr => tr.CreatedAt).IsRequired();
+
+            HasRequired(tr => tr.User)
+                .WithMany(u => u.TextRequests)
+                .HasForeignKey(tr => tr.UserId);
+
+            ToTable("text_requests");
+        }
     }
 }

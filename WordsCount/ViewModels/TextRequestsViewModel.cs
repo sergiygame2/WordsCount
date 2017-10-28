@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Data.Entity;
 using System.IO;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
@@ -7,6 +9,7 @@ using WordsCount.Commands;
 using WordsCount.Services;
 using WordsCount.Models;
 using System.Windows;
+using WordsCount.Data;
 
 namespace WordsCount.ViewModels
 {
@@ -139,8 +142,24 @@ namespace WordsCount.ViewModels
             OnRequestProgressBar(false);
 
             // writing logs (what current user have just done)
-            Logger.Log($"User {StationManager.CurrentUser?.UserName} analyzed file {FilePath}");
-            StationManager.CurrentUser?.TextRequests.Add(new TextRequest(FilePath, SymbolsAmount, WordsAmount, LinesAmount));
+            Logger.Log($"User {StationManager.CurrentUser.UserName} analyzed file {FilePath}");
+
+            var request = new TextRequest
+            {
+                Path = FilePath,
+                SymbolsAmount = SymbolsAmount,
+                WordsAmount = WordsAmount,
+                LinesAmount = LinesAmount,
+                CreatedAt = DateTime.Now,
+                UserId = StationManager.CurrentUser.Id
+            };
+
+            using (var dbContext = new AppDbContext())
+            {
+                dbContext.TextRequests.Add(request);
+                dbContext.SaveChanges();
+                dbContext.Entry(request).State = EntityState.Detached;
+            }
             
             OnRequestShowResults();
         }

@@ -8,6 +8,7 @@ using WordsCount.Data;
 using WordsCount.Models;
 using WordsCount.Services;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -135,10 +136,24 @@ namespace WordsCount.ViewModels
                     }
                 }
 
-                var currentUser = new User(Username, FirstName, LastName, Email, Password);
+                var currentUser = new User
+                {
+                    UserName = Username,
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    Email = Email,
+                    HashPassword = Password,
+                    LastVisit = DateTime.Now
+                };
 
-                // If user is valid, add him to database (static list)
-                DbAdapter.Users.Add(currentUser);
+                // If user is valid, add him to database
+                using (var dbContext = new AppDbContext())
+                {
+                    dbContext.Users.Add(currentUser);
+                    dbContext.SaveChanges();
+                    dbContext.Entry(currentUser).State = EntityState.Detached;
+                }
+
                 StationManager.CurrentUser = currentUser;
                 SerializeManager.Serialize(currentUser);
                 

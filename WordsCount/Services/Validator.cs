@@ -24,7 +24,10 @@ namespace WordsCount.Services
 
         public static bool IsExistingUsername(string username)
         {
-            return DbAdapter.Users.All(user => user.UserName != username);
+            using (var dbContext = new AppDbContext())
+            {
+                return dbContext.Users.All(user => user.UserName != username);
+            }
         }
     }
 }

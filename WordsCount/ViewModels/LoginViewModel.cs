@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -75,14 +76,28 @@ namespace WordsCount.ViewModels
             var result = await Task.Run(() =>
             {
                 Thread.Sleep(1000);
+                User currentUser = null;
 
-                // After some chackings, set the current user, and open cabinet window
-                var currentUser = DbAdapter.Users.FirstOrDefault(user => user.UserName == Username &&
-                                                                         user.HashPassword == DataHelper.Hash(Password));
+                using (var dbContext = new AppDbContext())
+                {
+                    // After some chackings, set the current user, and open cabinet window
+                    string hashPass = DataHelper.Hash(Password);
+                    currentUser = dbContext.Users.SingleOrDefault(user =>
+                        user.UserName == Username &&
+                        user.HashPassword == hashPass);
+                }
+
                 if (currentUser == null)
                 {
                     MessageBox.Show("Wrong Username or Password");
                     return false;
+                }
+
+                using (var dbContext = new AppDbContext())
+                {
+                    currentUser.LastVisit = DateTime.Now;
+                    dbContext.Entry(currentUser).State = System.Data.Entity.EntityState.Modified;
+                    dbContext.SaveChanges();
                 }
 
                 // setting curren user & serializing user on login

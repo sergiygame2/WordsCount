@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Runtime.Serialization;
 using WordsCount.Helpers;
 using WordsCount.Services;
@@ -10,7 +12,7 @@ namespace WordsCount.Models
     public class User : Services.ISerializable
     {
         [DataMember]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [DataMember]
         public string UserName { get; set; }
         [DataMember]
@@ -25,25 +27,30 @@ namespace WordsCount.Models
         public DateTime LastVisit { get; set; }
         [DataMember]
         public List<TextRequest> TextRequests { get; set; }
-
-        private static int _amount;
-
-        static User() => _amount = 0;
         
-        public User() { }
-
-        public User(string userName, string firstName, string lastName, string email, string password)
-        {
-            Id = ++_amount;
-            UserName = userName;
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-            HashPassword = DataHelper.Hash(password);
-            LastVisit = DateTime.Now;
-            TextRequests = new List<TextRequest>();
-        }
-
         public string FileName => StationManager.UserFilePath;
+    }
+
+    public class UserMap : EntityTypeConfiguration<User>
+    {
+        public UserMap()
+        {
+            HasKey(u => u.Id);
+
+            Property(u => u.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(u => u.UserName).IsRequired();
+            Property(u => u.FirstName).IsRequired();
+            Property(u => u.LastName).IsRequired();
+            Property(u => u.Email).IsRequired();
+            Property(u => u.HashPassword).IsRequired();
+            Property(u => u.LastVisit).IsRequired();
+            
+            HasMany(u => u.TextRequests)
+                .WithRequired(tr => tr.User)
+                .HasForeignKey(tr => tr.UserId)
+                .WillCascadeOnDelete();
+
+            ToTable("users");
+        }
     }
 }

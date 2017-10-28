@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using WordsCount.Data;
 using WordsCount.Models;
 using WordsCount.Services;
@@ -11,7 +12,7 @@ namespace WordsCount
     public partial class MainWindow
     {
         public MainWindow()
-        {   
+        {
             // deserializing user when app starts
             // if such users exists do autologin else redirect to login
             var user = SerializeManager.Deserialize<User>(StationManager.UserFilePath);
@@ -19,23 +20,9 @@ namespace WordsCount
             // In case the previous function returned new User()
             if (!String.IsNullOrEmpty(user?.UserName))
             {
-                StationManager.CurrentUser = user;
-
-                try
+                using (var dbContext = new AppDbContext())
                 {
-                    // If user already exists in static list of users, remove it
-                    if (DbAdapter.Users.Exists(u => u.UserName == user.UserName))
-                    {
-                        // Such user could be only one
-                        DbAdapter.Users.RemoveAll(u => u.UserName == user.UserName);
-                    }
-                    // Insert new or updated user
-                    DbAdapter.Users.Add(user);
-                }
-                catch (Exception e)
-                {
-                    // handling exception
-                    Logger.Log("Error after initial user deserialization. Cuoldn't add or remove user", e);
+                    StationManager.CurrentUser = dbContext.Users.SingleOrDefault(u => u.Id == user.Id);
                 }
 
                 // writing logs (what current user have just done)
