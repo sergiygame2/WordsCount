@@ -1,6 +1,6 @@
-﻿using WordsCount.Models;
+﻿using AppModels;
 
-namespace WordsCount.Services
+namespace WordsCount
 {
     // Manager for working with logged-in user
     public static class StationManager
@@ -9,6 +9,7 @@ namespace WordsCount.Services
 
         public static readonly string UserFilePath;
 
+        // TODO FILE PATH
         static StationManager()
         {
             UserFilePath = "user.json";

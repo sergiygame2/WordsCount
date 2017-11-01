@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
-using WordsCount.Data;
+﻿using System.Text.RegularExpressions;
 
-namespace WordsCount.Services
+namespace AppServices.Services
 {
     // Service for validation (currently used for SignUp form, could be used also in other parts of app)
     public class Validator
@@ -20,14 +18,6 @@ namespace WordsCount.Services
         public static bool IsPasswordMatch(string password, string repeatedPassword)
         {
             return repeatedPassword == password;
-        }
-
-        public static bool IsExistingUsername(string username)
-        {
-            using (var dbContext = new AppDbContext())
-            {
-                return dbContext.Users.All(user => user.UserName != username);
-            }
         }
     }
 }

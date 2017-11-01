@@ -72,30 +72,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Data\AppDbContext.cs" />
-    <Compile Include="Data\DbInitializer.cs" />
-    <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710281811441_Initial.cs" />
-    <Compile Include="Migrations\201710281811441_Initial.Designer.cs">
-      <DependentUpon>201710281811441_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TextRequest.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="RequestsHistoryWindow.xaml.cs">
       <DependentUpon>RequestsHistoryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\Validator.cs" />
-    <Compile Include="Services\Logger.cs" />
-    <Compile Include="Services\SerializeManager.cs" />
-    <Compile Include="Services\StaticResources.cs" />
+    <Compile Include="StationManager.cs" />
     <Compile Include="TextRequestsWindow.xaml.cs">
       <DependentUpon>TextRequestsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\StationManager.cs" />
-    <Compile Include="Services\TextAnalyzer.cs" />
     <Compile Include="SignUpWindow.xaml.cs">
       <DependentUpon>SignUpWindow.xaml</DependentUpon>
     </Compile>
@@ -146,9 +132,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201710281811441_Initial.resx">
-      <DependentUpon>201710281811441_Initial.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -162,6 +145,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AppModels\AppModels.csproj">
+      <Project>{8BC4DC3D-FB59-4955-9516-09F341A62D3C}</Project>
+      <Name>AppModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AppServices\AppServices.csproj">
+      <Project>{92D8784A-EEB6-4C73-A7D1-7236EC0A10B5}</Project>
+      <Name>AppServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DbAdapter\DbAdapter.csproj">
+      <Project>{d4fcd900-a8a2-435d-aec9-3816d943532e}</Project>
+      <Name>DbAdapter</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

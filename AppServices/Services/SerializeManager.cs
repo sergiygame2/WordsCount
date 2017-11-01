@@ -2,14 +2,14 @@
 using System.IO;
 using System.Runtime.Serialization.Json;
 
-namespace WordsCount.Services
+namespace AppServices.Services
 {
-    internal interface ISerializable
+    public interface ISerializable
     {
         string FileName { get; }
     }
 
-    internal static class SerializeManager
+    public static class SerializeManager
     {
         // method for creating path to directory where file will be stored
         private static string CreateAndGetPath(string filename)

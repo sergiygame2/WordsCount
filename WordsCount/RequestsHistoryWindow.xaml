@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WordsCount"
         xmlns:viewModels="clr-namespace:WordsCount.ViewModels"
-        xmlns:models="clr-namespace:WordsCount.Models"
+        xmlns:models="clr-namespace:AppModels;assembly=AppModels"
         mc:Ignorable="d"
         Title="RequestsHistoryWindow" Height="500" Width="700" MaxWidth="700" MaxHeight="500" MinWidth="700" MinHeight="500">
     <Grid>

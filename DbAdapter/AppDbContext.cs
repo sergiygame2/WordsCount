@@ -1,13 +1,15 @@
 ﻿using System.Data.Entity;
-using WordsCount.Models;
+using AppModels;
+using DbAdapter.Migrations;
 
-namespace WordsCount.Data
+namespace DbAdapter
 {
     public class AppDbContext : DbContext
     {
         public AppDbContext() : base("MsSqlConnectionString")
         {
-            Database.SetInitializer(new DbInitializer());
+            Database.SetInitializer(
+                new MigrateDatabaseToLatestVersion<AppDbContext, Configuration>("MsSqlConnectionString"));
         }
 
         public DbSet<User> Users { get; set; }
@@ -16,8 +18,8 @@ namespace WordsCount.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new UserMap());
-            modelBuilder.Configurations.Add(new TextRequestMap());
+            modelBuilder.Configurations.Add(new User.UserMap());
+            modelBuilder.Configurations.Add(new TextRequest.TextRequestMap());
         }
     }
 }

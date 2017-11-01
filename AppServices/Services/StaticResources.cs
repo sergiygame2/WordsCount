@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 
-namespace WordsCount.Services
+namespace AppServices.Services
 {
-    static class StaticResources
+    public static class StaticResources
     {
         private static readonly string AppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         internal static readonly string ClientDirPath = Path.Combine(AppData, "WordsCount");

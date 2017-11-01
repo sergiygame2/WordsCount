@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace WordsCount.Helpers
+namespace AppServices.Helpers
 {
     public static class DataHelper
     {

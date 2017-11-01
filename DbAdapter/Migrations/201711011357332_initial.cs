@@ -1,9 +1,9 @@
-namespace WordsCount.Migrations
+namespace DbAdapter.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -11,7 +11,7 @@ namespace WordsCount.Migrations
                 "dbo.text_requests",
                 c => new
                     {
-                        Id = c.Guid(nullable: false, identity: true),
+                        Id = c.Guid(nullable: false),
                         Path = c.String(nullable: false),
                         SymbolsAmount = c.Int(nullable: false),
                         WordsAmount = c.Int(nullable: false),
@@ -27,7 +27,7 @@ namespace WordsCount.Migrations
                 "dbo.users",
                 c => new
                     {
-                        Id = c.Guid(nullable: false, identity: true),
+                        Id = c.Guid(nullable: false),
                         UserName = c.String(nullable: false),
                         FirstName = c.String(nullable: false),
                         LastName = c.String(nullable: false),

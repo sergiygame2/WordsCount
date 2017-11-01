@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
+using AppServices.Services;
 using FontAwesome.WPF;
-using WordsCount.Services;
 using WordsCount.ViewModels;
 
 namespace WordsCount

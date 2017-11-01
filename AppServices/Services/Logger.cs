@@ -2,9 +2,9 @@
 using System.IO;
 using System.Threading;
 
-namespace WordsCount.Services
+namespace AppServices.Services
 {
-    internal static class Logger
+    public static class Logger
     {
         private static readonly string Filepath;
         private static readonly Mutex MutexObj;
@@ -29,7 +29,7 @@ namespace WordsCount.Services
             }
         }
 
-        internal static void Log(string message)
+        public static void Log(string message)
         {
             // use mutex to lock file (inner processes mutex)
             MutexObj.WaitOne();
@@ -54,7 +54,7 @@ namespace WordsCount.Services
         }
 
         // method for writing exceptions to log file
-        internal static void Log(string message, Exception ex)
+        public static void Log(string message, Exception ex)
         {
             Log(message);
             var realException = ex;

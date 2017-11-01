@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using WordsCount.Data;
-using WordsCount.Models;
-using WordsCount.Services;
+using AppModels;
+using AppServices.Services;
+using DbAdapter;
 
 namespace WordsCount
 {
@@ -20,10 +20,7 @@ namespace WordsCount
             // In case the previous function returned new User()
             if (!String.IsNullOrEmpty(user?.UserName))
             {
-                using (var dbContext = new AppDbContext())
-                {
-                    StationManager.CurrentUser = dbContext.Users.SingleOrDefault(u => u.Id == user.Id);
-                }
+                StationManager.CurrentUser = GenericEntityWrapper.GetUserByName(user.UserName);
 
                 // writing logs (what current user have just done)
                 Logger.Log($"User {StationManager.CurrentUser?.UserName} was autologged-in");

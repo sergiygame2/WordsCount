@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WordsCount.Services
+namespace AppServices.Services
 {
     public class TextAnalyzer
     {

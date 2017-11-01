@@ -1,15 +1,13 @@
-﻿using System;
-using System.ComponentModel;
-using System.Data.Entity;
+﻿using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Microsoft.Win32;
 using WordsCount.Commands;
-using WordsCount.Services;
-using WordsCount.Models;
 using System.Windows;
-using WordsCount.Data;
+using AppModels;
+using AppServices.Services;
+using DbAdapter;
 
 namespace WordsCount.ViewModels
 {
@@ -144,22 +142,10 @@ namespace WordsCount.ViewModels
             // writing logs (what current user have just done)
             Logger.Log($"User {StationManager.CurrentUser.UserName} analyzed file {FilePath}");
 
-            var request = new TextRequest
-            {
-                Path = FilePath,
-                SymbolsAmount = SymbolsAmount,
-                WordsAmount = WordsAmount,
-                LinesAmount = LinesAmount,
-                CreatedAt = DateTime.Now,
-                UserId = StationManager.CurrentUser.Id
-            };
+            var request = new TextRequest(FilePath, SymbolsAmount, WordsAmount, LinesAmount,
+                StationManager.CurrentUser.GetUserId());
 
-            using (var dbContext = new AppDbContext())
-            {
-                dbContext.TextRequests.Add(request);
-                dbContext.SaveChanges();
-                dbContext.Entry(request).State = EntityState.Detached;
-            }
+            GenericEntityWrapper.AddEntity(request);
             
             OnRequestShowResults();
         }

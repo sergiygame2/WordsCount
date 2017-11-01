@@ -1,17 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Data.Entity.Migrations;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using AppModels;
+using AppServices.Helpers;
+using AppServices.Services;
+using DbAdapter;
 using JetBrains.Annotations;
 using WordsCount.Commands;
-using WordsCount.Data;
-using WordsCount.Helpers;
-using WordsCount.Models;
-using WordsCount.Services;
 
 namespace WordsCount.ViewModels
 {
@@ -76,29 +74,17 @@ namespace WordsCount.ViewModels
             var result = await Task.Run(() =>
             {
                 Thread.Sleep(1000);
-                User currentUser = null;
-
-                using (var dbContext = new AppDbContext())
-                {
-                    // After some chackings, set the current user, and open cabinet window
-                    string hashPass = DataHelper.Hash(Password);
-                    currentUser = dbContext.Users.SingleOrDefault(user =>
-                        user.UserName == Username &&
-                        user.HashPassword == hashPass);
-                }
-
-                if (currentUser == null)
+                
+                var currentUser = GenericEntityWrapper.GetUserByName(Username);
+                
+                if (currentUser == null || currentUser.HashPassword != DataHelper.Hash(Password))
                 {
                     MessageBox.Show("Wrong Username or Password");
                     return false;
                 }
 
-                using (var dbContext = new AppDbContext())
-                {
-                    currentUser.LastVisit = DateTime.Now;
-                    dbContext.Entry(currentUser).State = System.Data.Entity.EntityState.Modified;
-                    dbContext.SaveChanges();
-                }
+                currentUser.LastVisit = DateTime.Now;
+                GenericEntityWrapper.EditEntity(currentUser);
 
                 // setting curren user & serializing user on login
                 StationManager.CurrentUser = currentUser;
