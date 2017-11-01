@@ -65,6 +65,10 @@
       <Project>{8bc4dc3d-fb59-4955-9516-09f341a62d3c}</Project>
       <Name>AppModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AppServices\AppServices.csproj">
+      <Project>{92d8784a-eeb6-4c73-a7d1-7236ec0a10b5}</Project>
+      <Name>AppServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711011357332_initial.resx">
