@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
@@ -145,7 +146,15 @@ namespace WordsCount.ViewModels
             var request = new TextRequest(FilePath, SymbolsAmount, WordsAmount, LinesAmount,
                 StationManager.CurrentUser.GetUserId());
 
-            GenericEntityWrapper.AddEntity(request);
+            try
+            {
+                GenericEntityWrapper.AddEntity(request);
+            }
+            catch (Exception e)
+            {
+                Logger.Log("Error adding text request", e);
+            }
+            
             
             OnRequestShowResults();
         }

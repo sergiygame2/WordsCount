@@ -5,7 +5,6 @@ using System.Windows;
 using JetBrains.Annotations;
 using WordsCount.Commands;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Threading;
 using System.Threading.Tasks;
 using AppModels;
@@ -112,12 +111,22 @@ namespace WordsCount.ViewModels
             var result = await Task.Run(() =>
             {
                 Thread.Sleep(1000);
-                
+
+                var userNameExists = false;
+
+                try
+                {
+                    userNameExists = GenericEntityWrapper.IsExistingUsername(Username);
+                }
+                catch (Exception e)
+                {
+                    Logger.Log("Error checking if username exists", e);
+                }
+
                 // using list of function & error message if function returned false
                 var validationFields = new List<KeyValuePair<bool, string>>
                 {
-                    new KeyValuePair<bool, string>(GenericEntityWrapper.IsExistingUsername(Username),
-                        "User with such username already exists!"),
+                    new KeyValuePair<bool, string>(userNameExists, "User with such username already exists!"),
                     new KeyValuePair<bool, string>(Validator.IsEmail(Email), "Email is not valid!"),
                     new KeyValuePair<bool, string>(Validator.IsString(FirstName),
                         "Firstname must contain only letters!"),
@@ -138,8 +147,15 @@ namespace WordsCount.ViewModels
 
                 var currentUser = new User(Username, FirstName, LastName, Email, Password);
 
-                // If user is valid, add him to database
-                GenericEntityWrapper.AddEntity(currentUser);
+                try
+                {
+                    // If user is valid, add him to database
+                    GenericEntityWrapper.AddEntity(currentUser);
+                }
+                catch (Exception e)
+                {
+                    Logger.Log("Error adding user", e);
+                }
 
                 StationManager.CurrentUser = currentUser;
                 SerializeManager.Serialize(currentUser);

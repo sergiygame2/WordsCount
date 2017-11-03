@@ -74,8 +74,16 @@ namespace WordsCount.ViewModels
             var result = await Task.Run(() =>
             {
                 Thread.Sleep(1000);
-                
-                var currentUser = GenericEntityWrapper.GetUserByName(Username);
+                User currentUser = null;
+
+                try
+                {
+                    currentUser = GenericEntityWrapper.GetUserByName(Username);
+                }
+                catch (Exception e)
+                {
+                    Logger.Log("Error getting user", e);
+                }
                 
                 if (currentUser == null || currentUser.HashPassword != DataHelper.Hash(Password))
                 {
@@ -83,9 +91,16 @@ namespace WordsCount.ViewModels
                     return false;
                 }
 
-                currentUser.LastVisit = DateTime.Now;
-                GenericEntityWrapper.EditEntity(currentUser);
-
+                try
+                {
+                    currentUser.LastVisit = DateTime.Now;
+                    GenericEntityWrapper.EditEntity(currentUser);
+                }
+                catch (Exception e)
+                {
+                    Logger.Log($"Error updating user {StationManager.CurrentUser}", e);
+                }
+                
                 // setting curren user & serializing user on login
                 StationManager.CurrentUser = currentUser;
                 SerializeManager.Serialize(currentUser);

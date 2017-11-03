@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AppModels;
+using AppServices.Services;
 using DbAdapter;
 using JetBrains.Annotations;
 using WordsCount.Commands;
@@ -20,7 +22,14 @@ namespace WordsCount.ViewModels
         {
             // Set this property when initialized, to show current user requests on form
             // using mvvm approach and list box
-            UserTextRequests = GenericEntityWrapper.GetTextRequests(StationManager.CurrentUser.GetUserId());
+            try
+            {
+                UserTextRequests = GenericEntityWrapper.GetTextRequests(StationManager.CurrentUser.GetUserId());
+            }
+            catch (Exception e)
+            {
+                Logger.Log($"Error getting user {StationManager.CurrentUser} text requests", e);
+            }
         }
 
         private void OpenRequestsWindow(object obj)
