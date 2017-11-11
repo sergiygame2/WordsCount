@@ -41,6 +41,7 @@ namespace AppModels
 
         public class TextRequestMap : EntityTypeConfiguration<TextRequest>
         {
+            // Rules for Text Request table columns
             public TextRequestMap()
             {
                 HasKey(tr => tr.Id);

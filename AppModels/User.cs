@@ -50,6 +50,7 @@ namespace AppModels
         
         public class UserMap : EntityTypeConfiguration<User>
         {
+            // Rules for User table columns
             public UserMap()
             {
                 HasKey(u => u.Id);

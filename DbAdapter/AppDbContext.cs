@@ -3,7 +3,10 @@ using AppModels;
 using DbAdapter.Migrations;
 
 namespace DbAdapter
-{
+{   
+    // DbContext derives from DBContext class and exposes DbSet properties 
+    // for the types that are the part of the model
+    // DbSet is a collection of entity classes
     public class AppDbContext : DbContext
     {
         public AppDbContext() : base("MsSqlConnectionString")
