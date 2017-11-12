@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AppModels;
 using AppServices.Services;
-using DbAdapter;
 using JetBrains.Annotations;
 using WordsCount.Commands;
 
@@ -24,7 +23,7 @@ namespace WordsCount.ViewModels
             // using mvvm approach and list box
             try
             {
-                UserTextRequests = GenericEntityWrapper.GetTextRequests(StationManager.CurrentUser.GetUserId());
+                UserTextRequests = WordsCountServiceWrapper.GetTextRequests(StationManager.CurrentUser.GetUserId());
             }
             catch (Exception e)
             {

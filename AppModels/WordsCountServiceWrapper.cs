@@ -6,12 +6,23 @@ namespace AppModels
 {
     public class WordsCountServiceWrapper
     {
-        public static void AddEntity<T>(T entity) where T : class
+        public static void AddEntity(User entity)
         {
             using (var myChannelFactory = new ChannelFactory<IWordsCountService>("Server"))
             {
                 var client = myChannelFactory.CreateChannel();
-                client.AddEntity(entity);
+                
+                client.AddUser(entity);
+            }
+        }
+
+        public static void AddEntity(TextRequest entity)
+        {
+            using (var myChannelFactory = new ChannelFactory<IWordsCountService>("Server"))
+            {
+                var client = myChannelFactory.CreateChannel();
+
+                client.AddTextRequest(entity);
             }
         }
 
@@ -42,12 +53,21 @@ namespace AppModels
             }
         }
 
-        public static void EditEntity<T>(T entity) where T : class
+        public static void EditEntity(User entity)
         {
             using (var myChannelFactory = new ChannelFactory<IWordsCountService>("Server"))
             {
                 var client = myChannelFactory.CreateChannel();
-                client.EditEntity(entity);
+                client.EditUser(entity);
+            }
+        }
+
+        public static void EditEntity(TextRequest entity)
+        {
+            using (var myChannelFactory = new ChannelFactory<IWordsCountService>("Server"))
+            {
+                var client = myChannelFactory.CreateChannel();
+                client.EditTextRequest(entity);
             }
         }
     }

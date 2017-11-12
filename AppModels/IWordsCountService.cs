@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using AppServices.Services;
 
 namespace AppModels
 {
@@ -8,7 +9,10 @@ namespace AppModels
     public interface IWordsCountService
     {
         [OperationContract]
-        void AddEntity<T>(T entity) where T : class;
+        void AddUser(User entity);
+
+        [OperationContract]
+        void AddTextRequest(TextRequest entity);
 
         [OperationContract]
         List<TextRequest> GetTextRequests(Guid userId);
@@ -20,6 +24,9 @@ namespace AppModels
         User GetUserByName(string userName);
 
         [OperationContract]
-        void EditEntity<T>(T entity) where T : class;
+        void EditUser(User entity);
+
+        [OperationContract]
+        void EditTextRequest(TextRequest entity);
     }
 }

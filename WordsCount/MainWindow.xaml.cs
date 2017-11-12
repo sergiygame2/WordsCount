@@ -25,7 +25,7 @@ namespace WordsCount
             {
                 try
                 {
-                    StationManager.CurrentUser = GenericEntityWrapper.GetUserByName(user.UserName);
+                    StationManager.CurrentUser = WordsCountServiceWrapper.GetUserByName(user.UserName);
                 }
                 catch (Exception e)
                 {
@@ -40,7 +40,7 @@ namespace WordsCount
                     try
                     {
                         StationManager.CurrentUser.LastVisit = DateTime.Now;
-                        GenericEntityWrapper.EditEntity(StationManager.CurrentUser);
+                        WordsCountServiceWrapper.EditEntity(StationManager.CurrentUser);
                     }
                     catch (Exception e)
                     {

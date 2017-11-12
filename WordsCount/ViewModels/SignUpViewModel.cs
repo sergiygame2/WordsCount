@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AppModels;
 using AppServices.Services;
-using DbAdapter;
 
 namespace WordsCount.ViewModels
 {
@@ -106,6 +105,7 @@ namespace WordsCount.ViewModels
         private async void SignUp(object obj)
         {
             OnRequestLoader(true);
+            
             // sign up user in a separate thread
             // show loader (spinner) while executing validation & db commands
             var result = await Task.Run(() =>
@@ -116,7 +116,7 @@ namespace WordsCount.ViewModels
 
                 try
                 {
-                    userNameExists = GenericEntityWrapper.IsExistingUsername(Username);
+                    userNameExists = WordsCountServiceWrapper.IsExistingUsername(Username);
                 }
                 catch (Exception e)
                 {
@@ -150,7 +150,7 @@ namespace WordsCount.ViewModels
                 try
                 {
                     // If user is valid, add him to database
-                    GenericEntityWrapper.AddEntity(currentUser);
+                    WordsCountServiceWrapper.AddEntity(currentUser);
                 }
                 catch (Exception e)
                 {

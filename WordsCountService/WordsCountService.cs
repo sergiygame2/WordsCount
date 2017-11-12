@@ -7,7 +7,12 @@ namespace WordsCount.Service
 {
     internal class WordsCountService: IWordsCountService
     {
-        public void AddEntity<T>(T entity) where T : class
+        public void AddUser(User entity)
+        {
+            GenericEntityWrapper.AddEntity(entity);
+        }
+
+        public void AddTextRequest(TextRequest entity)
         {
             GenericEntityWrapper.AddEntity(entity);
         }
@@ -27,7 +32,12 @@ namespace WordsCount.Service
             return GenericEntityWrapper.GetUserByName(userName);
         }
 
-        public void EditEntity<T>(T entity) where T : class
+        public void EditUser(User entity)
+        {
+            GenericEntityWrapper.EditEntity(entity);
+        }
+
+        public void EditTextRequest(TextRequest entity)
         {
             GenericEntityWrapper.EditEntity(entity);
         }
