@@ -5,14 +5,14 @@ namespace DbAdapter.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DbAdapter.AppDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<AppDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DbAdapter.AppDbContext context)
+        protected override void Seed(AppDbContext context)
         {
             // if users list is empty add some default users
             if (context.Users.Any()) return;

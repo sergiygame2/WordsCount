@@ -66,7 +66,6 @@ namespace WordsCount
             }
             else
             {
-                MessageBox.Show("Salut!");
                 Environment.Exit(0);
             }
         }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Windows;
 using AppModels;
 using AppServices.Services;
 using DbAdapter;
