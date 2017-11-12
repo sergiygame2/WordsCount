@@ -28,7 +28,7 @@ namespace DbAdapter
             }
         }
 
-        // Check if such username is a;ready exists
+        // Check if such username is already exists
         public static bool IsExistingUsername(string username)
         {
             using (var dbContext = new AppDbContext())
