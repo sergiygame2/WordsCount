@@ -20,8 +20,9 @@ namespace AppModels
         public int LinesAmount { get; set; }
         [DataMember]
         public DateTime CreatedAt { get; set; }
-
+        [DataMember]
         public Guid UserId { get; set; }
+        [DataMember]
         public User User { get; set; }
 
         public string FileName => "textRequests.json";

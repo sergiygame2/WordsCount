@@ -72,7 +72,6 @@ namespace WordsCount.ViewModels
             OnRequestLoader(true);
             var result = await Task.Run(() =>
             {
-                Thread.Sleep(1000);
                 User currentUser = null;
 
                 try

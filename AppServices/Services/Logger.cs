@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Threading;
 
 namespace AppServices.Services
@@ -56,15 +57,27 @@ namespace AppServices.Services
         // method for writing exceptions to log file
         public static void Log(string message, Exception ex)
         {
-            Log(message);
-            var realException = ex;
-
-            while (realException != null)
+            var stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(message);
+            while (ex != null)
             {
-                Log(realException.Message);
-                Log(realException.StackTrace);
-                realException = realException.InnerException;
+                stringBuilder.AppendLine(ex.Message);
+                stringBuilder.AppendLine(ex.StackTrace);
+                ex = ex.InnerException;
             }
+            Log(stringBuilder.ToString());
+        }
+
+        public static void Log(Exception ex)
+        {
+            var stringBuilder = new StringBuilder();
+            while (ex != null)
+            {
+                stringBuilder.AppendLine(ex.Message);
+                stringBuilder.AppendLine(ex.StackTrace);
+                ex = ex.InnerException;
+            }
+            Log(stringBuilder.ToString());
         }
     }
 }

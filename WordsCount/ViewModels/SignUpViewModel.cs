@@ -110,8 +110,6 @@ namespace WordsCount.ViewModels
             // show loader (spinner) while executing validation & db commands
             var result = await Task.Run(() =>
             {
-                Thread.Sleep(1000);
-
                 var userNameExists = false;
 
                 try

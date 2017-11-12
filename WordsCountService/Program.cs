@@ -14,7 +14,6 @@ namespace WordsCount.Service
         /// </summary>
         static void Main()
         {
-            //Thread.Sleep(10000);
             bool isInstalled = false;
             bool serviceStarting = false;
             const string serviceName = WordsCountWindowsService.CurrentServiceName;
