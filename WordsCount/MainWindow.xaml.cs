@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using AppModels;
 using AppServices.Services;
 using DbAdapter;
@@ -45,17 +46,13 @@ namespace WordsCount
                     }
 
                     GoToCabinet();
+                    return;
                 }
-                else
-                {
-                    Logger.Log("Error on autologin");
-                    Login();
-                }
+
+                Logger.Log("Error on autologin");
             }
-            else
-            {
-                Login();
-            }
+
+            Login();
         }
 
         private static void Login()

@@ -13,7 +13,7 @@ namespace WordsCount.ViewModels
     {
         private RelayCommand _openMainWindowCommand;
 
-        public RelayCommand OpenRequestsCommand => _openMainWindowCommand ?? (_openMainWindowCommand = new RelayCommand(OpenRequestsWindow));
+        public RelayCommand OpenRequestsCommand => _openMainWindowCommand ?? (_openMainWindowCommand = new RelayCommand(obj => OnRequestClose()));
 
         public List<TextRequest> UserTextRequests { get; set; }
 
@@ -31,20 +31,12 @@ namespace WordsCount.ViewModels
             }
         }
 
-        private void OpenRequestsWindow(object obj)
-        {
-            OnRequestClose(false);
-
-            var textRequestsWindow = new TextRequestsWindow();
-            textRequestsWindow.ShowDialog();
-        }
-
         internal event CloseHandler RequestClose;
-        public delegate void CloseHandler(bool isQuitApp);
+        public delegate void CloseHandler();
 
-        protected virtual void OnRequestClose(bool isquitapp)
+        protected virtual void OnRequestClose()
         {
-            RequestClose?.Invoke(isquitapp);
+            RequestClose?.Invoke();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

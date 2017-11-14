@@ -160,13 +160,23 @@ namespace WordsCount.ViewModels
             
         private void OpenTextRequests(object obj)
         {
-            OnRequestClose(false);
-
             // writing logs (what current user have just done)
             Logger.Log($"User {StationManager.CurrentUser?.UserName} oppened requests history");
 
+            OnRequestVisibilityChange(Visibility.Hidden);
+
             var requestsHistoryWindow = new RequestsHistoryWindow();
             requestsHistoryWindow.ShowDialog();
+            
+            OnRequestVisibilityChange(Visibility.Visible);
+        }
+
+        internal event VisibilityHandler RequestVisibilityChange;
+        internal delegate void VisibilityHandler(Visibility visibility);
+
+        internal virtual void OnRequestVisibilityChange(Visibility visibility)
+        {
+            RequestVisibilityChange?.Invoke(visibility);
         }
 
         internal event ProgressHandler RequestProgressBar;

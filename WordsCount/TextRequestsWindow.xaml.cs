@@ -35,7 +35,7 @@ namespace WordsCount
             textRequestsViewModel.RequestFillText += FillText;
             textRequestsViewModel.RequestShowResults += ShowResultsLabels;
             textRequestsViewModel.RequestProgressBar += UpdateProgressBar;
-
+            textRequestsViewModel.RequestVisibilityChange += (x) => Visibility = x;
             DataContext = textRequestsViewModel;
         }
 

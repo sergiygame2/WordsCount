@@ -22,20 +22,7 @@ namespace WordsCount
 
             DataContext = requestsHistoryViewModel;
         }
-
-        private void Close(bool isQuitApp)
-        {
-            if (!isQuitApp)
-            {
-                Close();
-            }
-            else
-            {
-                MessageBox.Show("Salut!");
-                Environment.Exit(0);
-            }
-        }
-
+        
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
