@@ -11,7 +11,7 @@
         <Label Content="Label" FontSize="15"  Name="UserNameLabel" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="95" RenderTransformOrigin="-4.471,0.308" Height="29"/>
         <Button Content="My requests" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="95" Height="30" RenderTransformOrigin="0.547,1.05"  Command="{Binding MyTextRequestsCommand}"/>
         <Button Content="Exit" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Width="95" Height="30" RenderTransformOrigin="0.547,1.05"  Command="{Binding ExitCommand}"/>
-        <TextBox Name="FileText" HorizontalAlignment="Left" Height="398" Margin="110,43,0,0" TextWrapping="Wrap" Text="{Binding FileText, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" VerticalAlignment="Top" Width="572"/>
+        <TextBox Name="FileText" HorizontalAlignment="Left" Height="398" Margin="110,43,0,0" TextWrapping="Wrap" Text="{Binding FileText, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" IsReadOnly="True" VerticalAlignment="Top" Width="572"/>
         <Label FontSize="15" Content="{Binding FilePath, UpdateSourceTrigger=PropertyChanged}" Name="PathLabel" HorizontalAlignment="Left" Margin="110,7,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="454" Height="32"/>
         <Button Content="Open file" HorizontalAlignment="Left" Margin="587,8,0,0" VerticalAlignment="Top" Width="95" Height="30" Command="{Binding OpenFileCommand}"/>
         <Label FontSize="13" Visibility="Hidden" x:Name="SymbolsAmount" Content="Symbols:" HorizontalAlignment="Left" Margin="113,441,0,0" VerticalAlignment="Top" Height="28" Width="62"/>
