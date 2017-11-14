@@ -7,10 +7,10 @@
         xmlns:viewModels="clr-namespace:WordsCount.ViewModels"
         xmlns:models="clr-namespace:AppModels;assembly=AppModels"
         mc:Ignorable="d"
-        Title="RequestsHistoryWindow" Height="500" Width="700" MaxWidth="700" MaxHeight="500" MinWidth="700" MinHeight="500">
+        Title="RequestsHistoryWindow" Height="500" Width="720" MaxWidth="720" MaxHeight="500" MinWidth="700" MinHeight="500">
     <Grid>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="587,10,0,0" VerticalAlignment="Top" Width="95" Height="30" Command="{Binding OpenRequestsCommand}"/>
-        <ListBox ItemsSource="{Binding UserTextRequests}" HorizontalAlignment="Left" Height="378" Margin="10,91,0,0" VerticalAlignment="Top" Width="672">
+        <Button Content="Back" HorizontalAlignment="Left" Margin="607,10,0,0" VerticalAlignment="Top" Width="95" Height="30" Command="{Binding OpenRequestsCommand}"/>
+        <ListBox ItemsSource="{Binding UserTextRequests}" HorizontalAlignment="Left" Height="378" Margin="10,91,0,0" VerticalAlignment="Top" Width="692">
             <ListBox.Resources>
                 <DataTemplate DataType="{x:Type models:TextRequest}">
                     <StackPanel Orientation="Horizontal">
@@ -18,7 +18,7 @@
                         <Label MaxWidth="65" Width="65" FontSize="15" HorizontalContentAlignment="Center" Content="{Binding WordsAmount}" />
                         <Label MaxWidth="65" Width="65" FontSize="15" HorizontalContentAlignment="Center" Content="{Binding SymbolsAmount}" />
                         <Label MaxWidth="70" Width="70" FontSize="15" HorizontalContentAlignment="Center" Content="{Binding LinesAmount}" />
-                        <Label MaxWidth="115" Width="115" FontSize="15" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Content="{Binding CreatedAt}" />
+                        <Label MaxWidth="130" Width="130" FontSize="15" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Content="{Binding CreatedAt}" ContentStringFormat="dd.MM.yyyy, HH:mm" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.Resources>
@@ -29,7 +29,7 @@
         <Label Content="Symbols" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="15" Margin="354,43,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.056,0.5" Width="68"/>
         <Label Content="Words" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="15" Margin="422,43,0,0" VerticalAlignment="Top" Width="65"/>
         <Label Content="Lines" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="15" Margin="492,43,0,0" VerticalAlignment="Top" Width="60"/>
-        <Label Content="Date" HorizontalAlignment="Left" HorizontalContentAlignment="Left" FontSize="15" Margin="587,43,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.79,0.667" Width="95"/>
+        <Label Content="Date" HorizontalAlignment="Left" HorizontalContentAlignment="Left" FontSize="15" Margin="607,43,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.79,0.667" Width="95"/>
 
     </Grid>
 </Window>

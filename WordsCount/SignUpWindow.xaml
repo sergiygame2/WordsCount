@@ -48,7 +48,7 @@
             <PasswordBox Margin="10,0,10,10" FontSize="13" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Height="32" VerticalAlignment="Top" Name="RepeatedPassword" PasswordChanged="Password_OnRepeatedPasswordChanged"/>
         </StackPanel>
         <Button Grid.Row="6" Grid.Column="1" Content="Sign up" HorizontalAlignment="Left" VerticalAlignment="Center" Width="95" Height="25" Command="{Binding SignUpCommand}" />
-        <Button Grid.Row="6" Grid.Column="1" Content="Log in" HorizontalAlignment="Right" VerticalAlignment="Center" Width="95" Height="25" Command="{Binding SignInCommand}"/>
+        <Button Grid.Row="6" Grid.Column="1" Content="Back" HorizontalAlignment="Right" VerticalAlignment="Center" Width="95" Height="25" Command="{Binding BackToSignInCommand}"/>
         <Button Grid.Row="8" Grid.Column="1" Content="Close" HorizontalAlignment="Right" VerticalAlignment="Center" Width="95" Height="25" Command="{Binding CloseCommand}"/>
     </Grid>
 </Window>

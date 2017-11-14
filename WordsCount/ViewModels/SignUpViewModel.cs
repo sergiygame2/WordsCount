@@ -5,7 +5,6 @@ using System.Windows;
 using JetBrains.Annotations;
 using WordsCount.Commands;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using AppModels;
 using AppServices.Services;
@@ -15,7 +14,7 @@ namespace WordsCount.ViewModels
     internal class SignUpViewModel : INotifyPropertyChanged
     {
         private readonly User _userCandidate;
-        private RelayCommand _signInCommand;
+        private RelayCommand _backToSignInCommand;
         private RelayCommand _signUpCommand;
         private RelayCommand _closeCommand;
 
@@ -29,7 +28,7 @@ namespace WordsCount.ViewModels
             get { return _closeCommand ?? (_closeCommand = new RelayCommand(obj => OnRequestClose(true))); }
         }
 
-        public RelayCommand SignInCommand => _signInCommand ?? (_signInCommand = new RelayCommand(SignIn));
+        public RelayCommand BackToSignInCommand => _backToSignInCommand ?? (_backToSignInCommand = new RelayCommand(BackToSignIn));
 
         public RelayCommand SignUpCommand
         {
@@ -94,7 +93,7 @@ namespace WordsCount.ViewModels
             }
         }
 
-        private void SignIn(object obj)
+        private void BackToSignIn(object obj)
         {
             OnRequestClose(false);
 

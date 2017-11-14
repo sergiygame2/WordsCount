@@ -15,8 +15,7 @@ namespace WordsCount
             // deserializing user when app starts
             // if such users exists do autologin else redirect to login
             var user = SerializeManager.Deserialize<User>(StationManager.UserFilePath);
-            var failedAutoLogin = false;
-            bool userNameIsEmpty = String.IsNullOrEmpty(user?.UserName);
+            var userNameIsEmpty = String.IsNullOrEmpty(user?.UserName);
 
             // In case the previous function returned new User()
             if (!userNameIsEmpty)
@@ -45,20 +44,30 @@ namespace WordsCount
                         Logger.Log("Error updating user", e);
                     }
 
-                    var textRequestsWindow = new TextRequestsWindow();
-                    textRequestsWindow.ShowDialog();
+                    GoToCabinet();
                 }
                 else
                 {
                     Logger.Log("Error on autologin");
-                    failedAutoLogin = true;
+                    Login();
                 }
             }
+            else
+            {
+                Login();
+            }
+        }
 
-            if (!userNameIsEmpty && !failedAutoLogin) return;
-
+        private static void Login()
+        {
             var loginWindow = new LoginWindow();
             loginWindow.ShowDialog();
+        }
+
+        private static void GoToCabinet()
+        {
+            var textRequestsWindow = new TextRequestsWindow();
+            textRequestsWindow.ShowDialog();
         }
     }
 }
