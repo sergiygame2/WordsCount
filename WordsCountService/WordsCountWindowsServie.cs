@@ -53,7 +53,8 @@ namespace WordsCount.Service
             }
             catch (Exception ex)
             {
-                _serviceEventLog.WriteEntry(string.Format("Initialization{0}{1}ex.StackTrace = {2}{1}ex.InnerException.Message = {3}", ex.Message, Environment.NewLine, ex.StackTrace, (ex.InnerException == null ? "null" : ex.InnerException.Message)),
+                _serviceEventLog.WriteEntry(
+                    $"Initialization{ex.Message}{Environment.NewLine}ex.StackTrace = {ex.StackTrace}{Environment.NewLine}ex.InnerException.Message = {ex.InnerException?.Message ?? "null"}",
                     EventLogEntryType.Error);
                 Logger.Log("Initialization", ex);
             }
@@ -66,11 +67,11 @@ namespace WordsCount.Service
 
             try
             {
-                if (_serviceHost != null)
-                    _serviceHost.Close();
+                _serviceHost?.Close();
             }
             catch
             {
+                // ignored
             }
             try
             {
@@ -79,7 +80,7 @@ namespace WordsCount.Service
             }
             catch (Exception ex)
             {
-                _serviceEventLog.WriteEntry(string.Format("Opening The Host: {0}", ex.Message), EventLogEntryType.Error);
+                _serviceEventLog.WriteEntry($"Opening The Host: {ex.Message}", EventLogEntryType.Error);
                 Logger.Log("OnStart", ex);
                 throw;
             }
@@ -96,7 +97,7 @@ namespace WordsCount.Service
             }
             catch (Exception ex)
             {
-                _serviceEventLog.WriteEntry(string.Format("Trying To Stop The Host Listener{0}", ex.Message),
+                _serviceEventLog.WriteEntry($"Trying To Stop The Host Listener{ex.Message}",
                     EventLogEntryType.Error);
                 Logger.Log("Trying To Stop The Host Listener", ex);
             }
