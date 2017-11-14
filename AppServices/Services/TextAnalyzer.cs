@@ -36,8 +36,6 @@ namespace AppServices.Services
 
             return await Task.Run(() =>
             {
-                Thread.Sleep(1000);
-
                 // count all chars except some special
                 _symbolsCount = _text.Count(c => !SymbolsDelimeters.Contains(c));
                 
@@ -55,8 +53,6 @@ namespace AppServices.Services
 
             return await Task.Run(() =>
             {
-                Thread.Sleep(1000);
-
                 // split text by special characters to retrieve array of words, then count it's amount
                 _wordsCount = _text.Split(WordsDelimeters, StringSplitOptions.RemoveEmptyEntries).Length;
 
@@ -74,8 +70,6 @@ namespace AppServices.Services
 
             return await Task.Run(() =>
             {
-                Thread.Sleep(1000);
-
                 // split text by special line characters
                 _linesCount = _text.Split(LinesDelimeters).Length;
 

@@ -7,7 +7,6 @@ using System.Windows;
 using AppModels;
 using AppServices.Helpers;
 using AppServices.Services;
-using DbAdapter;
 using JetBrains.Annotations;
 using WordsCount.Commands;
 
@@ -77,11 +76,12 @@ namespace WordsCount.ViewModels
 
                 try
                 {
-                    currentUser = GenericEntityWrapper.GetUserByName(Username);
+                    currentUser = WordsCountServiceWrapper.GetUserByName(Username);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Logger.Log("Error getting user", e);
+                    MessageBox.Show("Error on login");
+                    return false;
                 }
                 
                 if (currentUser == null || currentUser.HashPassword != DataHelper.Hash(Password))
@@ -93,11 +93,12 @@ namespace WordsCount.ViewModels
                 try
                 {
                     currentUser.LastVisit = DateTime.Now;
-                    GenericEntityWrapper.EditEntity(currentUser);
+                    WordsCountServiceWrapper.EditEntity(currentUser);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Logger.Log($"Error updating user {StationManager.CurrentUser}", e);
+                    MessageBox.Show("Error updating user");
+                    return false;
                 }
                 
                 // setting curren user & serializing user on login
@@ -109,6 +110,7 @@ namespace WordsCount.ViewModels
             OnRequestLoader(false);
 
             if (!result) return;
+            
             OnRequestClose(false);
 
             // writing logs (what current user have just done)

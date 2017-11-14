@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppModels", "AppModels\AppM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppServices", "AppServices\AppServices.csproj", "{92D8784A-EEB6-4C73-A7D1-7236EC0A10B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordsCountService", "WordsCountService\WordsCountService.csproj", "{79A8FAF4-C3A4-4E45-97CB-712B88AF8EAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{92D8784A-EEB6-4C73-A7D1-7236EC0A10B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92D8784A-EEB6-4C73-A7D1-7236EC0A10B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92D8784A-EEB6-4C73-A7D1-7236EC0A10B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79A8FAF4-C3A4-4E45-97CB-712B88AF8EAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79A8FAF4-C3A4-4E45-97CB-712B88AF8EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79A8FAF4-C3A4-4E45-97CB-712B88AF8EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79A8FAF4-C3A4-4E45-97CB-712B88AF8EAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

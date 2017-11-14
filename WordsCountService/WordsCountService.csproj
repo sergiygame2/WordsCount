@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D4FCD900-A8A2-435D-AEC9-3816D943532E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DbAdapter</RootNamespace>
-    <AssemblyName>DbAdapter</AssemblyName>
+    <ProjectGuid>{79A8FAF4-C3A4-4E45-97CB-712B88AF8EAE}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>WordsCount.Service</RootNamespace>
+    <AssemblyName>WordsCount.Service</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,14 +33,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,32 +53,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppDbContext.cs" />
-    <Compile Include="GenericEntityWrapper.cs" />
-    <Compile Include="Migrations\201711011357332_Initial.cs" />
-    <Compile Include="Migrations\201711011357332_Initial.Designer.cs">
-      <DependentUpon>201711011357332_Initial.cs</DependentUpon>
+    <Compile Include="Program.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WordsCountWindowsServie.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WordsCountService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppModels\AppModels.csproj">
-      <Project>{8bc4dc3d-fb59-4955-9516-09f341a62d3c}</Project>
+      <Project>{8BC4DC3D-FB59-4955-9516-09F341A62D3C}</Project>
       <Name>AppModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\AppServices\AppServices.csproj">
-      <Project>{92d8784a-eeb6-4c73-a7d1-7236ec0a10b5}</Project>
+      <Project>{92D8784A-EEB6-4C73-A7D1-7236EC0A10B5}</Project>
       <Name>AppServices</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711011357332_Initial.resx">
-      <DependentUpon>201711011357332_Initial.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\DBAdapter\DBAdapter.csproj">
+      <Project>{D4949F27-8FDB-4FF1-9FAD-7E01DAF24F3A}</Project>
+      <Name>DBAdapter</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

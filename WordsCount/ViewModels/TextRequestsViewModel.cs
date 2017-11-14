@@ -8,7 +8,6 @@ using WordsCount.Commands;
 using System.Windows;
 using AppModels;
 using AppServices.Services;
-using DbAdapter;
 
 namespace WordsCount.ViewModels
 {
@@ -148,7 +147,7 @@ namespace WordsCount.ViewModels
 
             try
             {
-                GenericEntityWrapper.AddEntity(request);
+                WordsCountServiceWrapper.AddEntity(request);
             }
             catch (Exception e)
             {
