@@ -143,7 +143,7 @@ namespace WordsCount.ViewModels
             Logger.Log($"User {StationManager.CurrentUser.UserName} analyzed file {FilePath}");
 
             var request = new TextRequest(FilePath, SymbolsAmount, WordsAmount, LinesAmount,
-                StationManager.CurrentUser.GetUserId());
+                StationManager.CurrentUser.Id);
 
             try
             {

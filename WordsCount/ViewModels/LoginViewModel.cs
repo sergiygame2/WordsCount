@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using AppModels;
@@ -67,6 +68,11 @@ namespace WordsCount.ViewModels
 
         private async void SignIn(object obj)
         {
+            // created list for collecting errors
+            // due to the fact that mutex doesn't work
+            // when calling it from a child thread
+            var errorsCollector = new List<(string, Exception)>();
+            
             // sign in user in a separate thread
             // show loader (spinner) while executing validation & db commands
             OnRequestLoader(true);
@@ -78,9 +84,9 @@ namespace WordsCount.ViewModels
                 {
                     currentUser = WordsCountServiceWrapper.GetUserByName(Username);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    MessageBox.Show("Error on login");
+                    errorsCollector.Add(("Error getting user by username from DB", e));
                     return false;
                 }
                 
@@ -95,9 +101,9 @@ namespace WordsCount.ViewModels
                     currentUser.LastVisit = DateTime.Now;
                     WordsCountServiceWrapper.EditEntity(currentUser);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    MessageBox.Show("Error updating user");
+                    errorsCollector.Add(("Error updating user", e));
                     return false;
                 }
                 
@@ -108,8 +114,19 @@ namespace WordsCount.ViewModels
                 return true;
             });
             OnRequestLoader(false);
+            
+            if (!result)
+            {
+                if (!errorsCollector.Any()) return;
 
-            if (!result) return;
+                foreach (var error in errorsCollector)
+                {
+                    Logger.Log(error.Item1, error.Item2);
+                }
+
+                MessageBox.Show("Error on login. Try again please");
+                return;
+            }
             
             OnRequestClose(false);
 

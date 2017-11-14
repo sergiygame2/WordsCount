@@ -11,7 +11,7 @@ namespace AppModels
     public class User : ISerializable
     {
         [DataMember]
-        private Guid Id { get; set; }
+        public Guid Id { get; private set; }
         [DataMember]
         public string UserName { get; set; }
         [DataMember]
@@ -26,7 +26,7 @@ namespace AppModels
         public DateTime LastVisit { get; set; }
         [DataMember]
         public List<TextRequest> TextRequests { get; set; }
-
+        
         public User()
         {
             
@@ -43,9 +43,7 @@ namespace AppModels
             LastVisit = DateTime.Now;
             TextRequests = new List<TextRequest>();
         }
-
-        public Guid GetUserId() => Id;
-
+        
         public string FileName => "user.json";
         
         public class UserMap : EntityTypeConfiguration<User>

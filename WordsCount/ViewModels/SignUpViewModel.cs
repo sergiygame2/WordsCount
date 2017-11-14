@@ -5,6 +5,7 @@ using System.Windows;
 using JetBrains.Annotations;
 using WordsCount.Commands;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AppModels;
 using AppServices.Services;
@@ -103,6 +104,8 @@ namespace WordsCount.ViewModels
 
         private async void SignUp(object obj)
         {
+            var errorsCollector = new List<(string, Exception)>();
+
             OnRequestLoader(true);
             
             // sign up user in a separate thread
@@ -117,7 +120,8 @@ namespace WordsCount.ViewModels
                 }
                 catch (Exception e)
                 {
-                    Logger.Log("Error checking if username exists", e);
+                    errorsCollector.Add(("Error checking if username exists", e));
+                    return false;
                 }
 
                 // using list of function & error message if function returned false
@@ -151,7 +155,8 @@ namespace WordsCount.ViewModels
                 }
                 catch (Exception e)
                 {
-                    Logger.Log("Error adding user", e);
+                    errorsCollector.Add(("Error adding user", e));
+                    return false;
                 }
 
                 StationManager.CurrentUser = currentUser;
@@ -161,7 +166,18 @@ namespace WordsCount.ViewModels
             });
             OnRequestLoader(false);
 
-            if (!result) return;
+            if (!result)
+            {
+                if (!errorsCollector.Any()) return;
+
+                foreach (var error in errorsCollector)
+                {
+                    Logger.Log(error.Item1, error.Item2);
+                }
+
+                MessageBox.Show("Error on login. Try again please");
+                return;
+            }
 
             // writing logs (what current user have just done)
             Logger.Log($"User {StationManager.CurrentUser?.UserName} signed-up");

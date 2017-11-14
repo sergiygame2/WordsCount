@@ -23,7 +23,7 @@ namespace WordsCount.ViewModels
             // using mvvm approach and list box
             try
             {
-                UserTextRequests = WordsCountServiceWrapper.GetTextRequests(StationManager.CurrentUser.GetUserId());
+                UserTextRequests = WordsCountServiceWrapper.GetTextRequests(StationManager.CurrentUser.Id);
             }
             catch (Exception e)
             {
